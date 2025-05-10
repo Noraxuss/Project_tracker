@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="project_tracker.application.controller.MenuController"
+            prefHeight="400.0" prefWidth="600.0">
+    <center>
+        <GridPane hgap="10" vgap="10" alignment="CENTER">
+            <Label text="%menu.title" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+            <Button fx:id="projectsButton" text="%menu.projects" onAction="#handleProjects"
+                    GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <Button fx:id="optionsButton" text="%menu.options" onAction="#handleOptions"
+                    GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+            <Button fx:id="exitButton" text="%menu.exit" onAction="#handleExit"
+                    GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+        </GridPane>
+    </center>
+
+</BorderPane>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="project_tracker.application.controller.TaskViewController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <GridPane hgap="10" vgap="10" alignment="TOP_CENTER">
+        <Label text="%task.id" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <Label fx:id="taskIdField" onMouseClicked="#handleMouseClickOnTaskTitle"
+               GridPane.columnIndex="1" GridPane.rowIndex="0"  />
+
+        <Label text="%project.name" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+
+        <Label fx:id="taskNameField" onMouseClicked="#handleMouseClickOnTaskName"
+               GridPane.columnIndex="0" GridPane.rowIndex="2"  />
+        <TextField fx:id="editableTaskNameField" onAction="#handleTaskNameEditAction"
+                   GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+
+        <Label text="%project.description" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+
+        <Label fx:id="taskDescriptionField" onMouseClicked="#handleMouseClickOnTaskDescription"
+               GridPane.columnIndex="0" GridPane.rowIndex="4"  />
+        <TextField fx:id="editableTaskDescriptionField" onAction="#handleTaskDescriptionEditAction"
+                   GridPane.columnIndex="0" GridPane.rowIndex="4" />
+
+    </GridPane>
+
+</GridPane>

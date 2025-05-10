@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="project_tracker.application.controller.CreateTaskController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <Label fx:id="titleLabel" text="%create_task.title" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+    <Label text="%create_task.task_name" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+    <TextField fx:id="taskNameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+    <Label text="%create_task.task_description" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+    <TextField fx:id="taskDescriptionField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+    <Button fx:id="createTaskButton" text="%create_task.create_task" onAction="#handleCreateTask"
+            GridPane.columnIndex="0" GridPane.rowIndex="3" />
+
+    <Label fx:id="SystemResponseLabel" GridPane.columnIndex="1" GridPane.rowIndex="4" style="-fx-text-fill: red"/>
+
+</GridPane>

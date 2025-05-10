@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="project_tracker.application.controller.RegisterController">
+
+    <center>
+        <GridPane hgap="10" vgap="10" alignment="CENTER">
+            <Label fx:id="titleLabel" text="%register.title" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+            <Label text="%register.username" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <TextField fx:id="usernameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+            <Label text="%register.password" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+            <Label text="%register.e-mail" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+            <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+            <Button fx:id="registerButton" text="%register.button" onAction="#handleRegister"
+                    GridPane.columnIndex="0"
+                    GridPane.rowIndex="4"/>
+
+            <Label fx:id="SystemResponseLabel" GridPane.columnIndex="1" GridPane.rowIndex="4" style="-fx-text-fill: red"/>
+        </GridPane>
+    </center>
+
+    <bottom>
+        <GridPane hgap="10" vgap="10" alignment="CENTER">
+            <Button fx:id="backButton" text="%register.back" onAction="#handleBack"
+                    GridPane.columnIndex="0"
+                    GridPane.rowIndex="4"/>
+        </GridPane>
+    </bottom>
+</BorderPane>

@@ -1,0 +1,40 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:8080/feedback_intern
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: test
+    password: develop
+
+  flyway:
+    # Flyway is used for automatic database schema migrations
+    url: jdbc:mysql://localhost:8080/feedback_intern
+    user: test
+    password: develop
+    locations: classpath:db/migration  # Migrations will be loaded from src/main/resources/db/migration
+
+  jpa:
+    hibernate:
+      ddl-auto: update  # Automatically update the schema to match the entities — OK for dev, not for prod
+    show-sql: true       # Logs all SQL statements to the console
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect  # Specifies MySQL-specific SQL syntax
+
+  sql:
+    init:
+      mode: always  # Ensures schema/data SQL runs even if the DB exists — good for dev setup
+
+server:
+  port: 3306  # Default dev port; change if needed to avoid conflicts
+
+# Uncomment and configure SSL if you want HTTPS in dev (not common)
+#  ssl:
+#    enabled: false
+#    key-store: classpath:keystore.p12
+#    key-store-password: dev1234
+#    key-store-type: PKCS12
+#    key-alias: my-ssl-cert
+
+logging:
+  level:
+    org.springframework.web: DEBUG  # Enables debug logs for Spring web layer — useful for dev
