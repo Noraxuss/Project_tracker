@@ -2,7 +2,6 @@ package project_tracker.application.connectors;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import project_tracker.application.domain.ProjectModuleWithTaskModuleList;
 import project_tracker.application.dto.incoming.ProjectCommand;
 import project_tracker.application.dto.incoming.ProjectWithTasksCommand;
 import project_tracker.application.dto.outgoing.ProjectDetails;
@@ -11,7 +10,6 @@ import project_tracker.application.service.ProjectService;
 import project_tracker.application.service.ServiceFactory;
 import project_tracker.application.utilities.UserSession;
 
-import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URISyntaxException;
