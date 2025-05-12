@@ -34,6 +34,12 @@
 			<optional>true</optional>
 		</dependency>
 
+		<dependency>
+			<groupId>my_projects</groupId>
+			<artifactId>project_tracker_logging</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+
 		<!-- PASSWORD HASHING WITH ARGON2 + BOUNCY CASTLE -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>

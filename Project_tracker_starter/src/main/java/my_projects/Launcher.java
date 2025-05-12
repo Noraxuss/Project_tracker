@@ -1,25 +1,29 @@
 package my_projects;
 
+import javafx.application.Application;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-import javafx.application.Application;
 import project_tracker.application.AppStart;
 import project_tracker_backend.ProjectTrackerBackendApplication;
 
+import java.io.File;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Launcher {
 
     private static ConfigurableApplicationContext springContext;
-    private static ExecutorService executorService;
+
 
     public static void main(String[] args) {
+        ExecutorService executorService;
 
-        // Create a thread pool with two threads: one for the backend and one for the frontend
+        // Clean up leftover flags before startup
+        cleanFlagFiles();
+
         executorService = Executors.newFixedThreadPool(2);
 
-        // Run backend in a separate thread
+        // Start backend
         executorService.submit(() -> {
             try {
                 springContext = SpringApplication.run(ProjectTrackerBackendApplication.class, args);
@@ -28,19 +32,28 @@ public class Launcher {
             }
         });
 
-        // Run frontend (JavaFX) in the main thread
+        // Start frontend (JavaFX)
         executorService.submit(() -> {
             Application.launch(AppStart.class, args);
         });
 
-        // Graceful shutdown: shut down executor service once both frontend and backend are done
+        // Shutdown logic
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            if (springContext != null) {
-                springContext.close();
-            }
-            if (executorService != null && !executorService.isShutdown()) {
-                executorService.shutdown();
-            }
+            if (springContext != null) springContext.close();
+            if (!executorService.isShutdown()) executorService.shutdown();
+
+            cleanFlagFiles(); // Clean up again on exit
         }));
+    }
+
+    private static void cleanFlagFiles() {
+        File readyFlag = new File("flags/backend_ready.flag");
+        File errorFlag = new File("flags/backend_failed.flag");
+        if (readyFlag.exists()) {
+            readyFlag.delete();
+        }
+        if (errorFlag.exists()) {
+            errorFlag.delete();
+        }
     }
 }

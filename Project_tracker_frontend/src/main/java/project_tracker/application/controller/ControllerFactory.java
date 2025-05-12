@@ -1,5 +1,6 @@
 package project_tracker.application.controller;
 
+import project_tracker.application.connectors.BackendCheckerConnector;
 import project_tracker.application.scene.SceneEngine;
 import project_tracker.application.scene.SceneEngineAware;
 import project_tracker.application.service.*;
@@ -10,15 +11,17 @@ public class ControllerFactory {
     private final ProjectService projectService;
     private final TaskService taskService;
     private final UserService userService;
+    private final BackendCheckerService backendCheckerService;
 
     public ControllerFactory(SceneEngine sceneEngine,
                              ProjectService projectService,
                              TaskService taskService,
-                             UserService userService) {
+                             UserService userService, BackendCheckerService backendCheckerservice) {
         this.sceneEngine = sceneEngine;
         this.projectService = projectService;
         this.taskService = taskService;
         this.userService = userService;
+        this.backendCheckerService = backendCheckerservice;
     }
 
     public Object createController(Class<?> controllerClass) {
@@ -35,6 +38,9 @@ public class ControllerFactory {
             }
             if (controller instanceof UserServiceAware) {
                 ((UserServiceAware) controller).setUserService(userService);
+            }
+            if (controller instanceof BackendCheckerServiceAware) {
+                ((BackendCheckerServiceAware) controller).setBackendCheckerService(backendCheckerService);
             }
             return controller;
         } catch (Exception e) {

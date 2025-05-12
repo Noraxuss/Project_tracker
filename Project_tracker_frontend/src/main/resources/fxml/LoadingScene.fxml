@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="project_tracker.application.controller.LoadingController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <VBox alignment="CENTER" spacing="10">
+        <Label fx:id="statusLabel" text="Starting up backend..." />
+        <ProgressIndicator fx:id="progressIndicator" />
+        <Button fx:id="showLogsButton" text="Show Logs" onAction="#onShowLogs" visible="false"/>
+        <TextArea fx:id="logArea" editable="false" wrapText="true" visible="false"/>
+    </VBox>
+
+</AnchorPane>

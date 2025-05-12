@@ -5,6 +5,7 @@ public class ServiceFactory {
     private static ProjectService projectService;
     private static TaskService taskService;
     private static UserService userService;
+    private static BackendCheckerService backendCheckerService;
 
     public static ProjectService getProjectService() {
         if (projectService == null) {
@@ -27,4 +28,10 @@ public class ServiceFactory {
         return userService;
     }
 
+    public static BackendCheckerService getBackendCheckerService() {
+        if (backendCheckerService == null) {
+            backendCheckerService = new BackendCheckerService();
+        }
+        return backendCheckerService;
+    }
 }

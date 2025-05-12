@@ -18,7 +18,8 @@ package project_tracker.application.utilities;
                     sceneEngine,
                     ServiceFactory.getProjectService(),
                     ServiceFactory.getTaskService(),
-                    ServiceFactory.getUserService()
+                    ServiceFactory.getUserService(),
+                    ServiceFactory.getBackendCheckerService()
             );
         }
 
