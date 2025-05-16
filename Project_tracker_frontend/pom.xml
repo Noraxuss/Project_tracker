@@ -99,7 +99,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>project_tracker.application.AppStart</mainClass>
+                    <mainClass>project_tracker_frontend.application.AppStart</mainClass>
                 </configuration>
             </plugin>
         </plugins>

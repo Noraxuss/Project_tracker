@@ -5,7 +5,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="project_tracker.application.controller.MenuController"
+            fx:controller="project_tracker_frontend.application.controller.MenuController"
             prefHeight="400.0" prefWidth="600.0">
     <center>
         <GridPane hgap="10" vgap="10" alignment="CENTER">

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+
+    <!-- Console Appender (logs to the terminal/console) -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>
+                %d{HH:mm:ss.SSS} [%thread] %highlight(%-5level) %cyan(%logger{36}) - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+
+    <!-- Backend File Appender -->
+    <appender name="BACKEND_FILE" class="ch.qos.logback.core.FileAppender">
+        <file>logs/backend.log</file>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} - %level - %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Frontend File Appender -->
+    <appender name="FRONTEND_FILE" class="ch.qos.logback.core.FileAppender">
+        <file>logs/frontend.log</file>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} - %level - %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Starter File Appender -->
+    <appender name="STARTER_FILE" class="ch.qos.logback.core.FileAppender">
+        <file>logs/starter.log</file>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} - %level - %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Custom loggers -->
+    <logger name="project_tracker_backend" level="DEBUG" additivity="false">
+        <appender-ref ref="BACKEND_FILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <logger name="project_tracker_frontend" level="DEBUG" additivity="false">
+        <appender-ref ref="FRONTEND_FILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <logger name="project_tracker_starter" level="DEBUG" additivity="false">
+        <appender-ref ref="STARTER_FILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+
+    <springProfile name="dev">
+        <!-- Dev Root Logger: Show all log levels in console -->
+        <root level="DEBUG">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="FILE"/>
+        </root>
+
+        <!-- Module-specific log levels (optional if already covered above) -->
+        <logger name="project_tracker_starter" level="DEBUG"/>
+        <logger name="project_tracker_backend" level="DEBUG"/>
+        <logger name="project_tracker_frontend" level="DEBUG"/>
+    </springProfile>
+
+
+    <springProfile name="prod">
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="FILE"/>
+        </root>
+
+        <logger name="project_tracker_starter" level="WARN"/>
+        <logger name="project_tracker_backend" level="WARN"/>
+        <logger name="project_tracker_frontend" level="WARN"/>
+    </springProfile>
+
+
+</configuration>

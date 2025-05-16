@@ -8,7 +8,7 @@
 
 <GridPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="project_tracker.application.controller.CreateTaskController"
+            fx:controller="project_tracker_frontend.application.controller.CreateTaskController"
             prefHeight="400.0" prefWidth="600.0">
 
     <Label fx:id="titleLabel" text="%create_task.title" GridPane.columnIndex="1" GridPane.rowIndex="0" />

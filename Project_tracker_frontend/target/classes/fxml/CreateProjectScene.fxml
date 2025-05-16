@@ -8,7 +8,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="project_tracker.application.controller.CreateProjectController"
+            fx:controller="project_tracker_frontend.application.controller.CreateProjectController"
             prefHeight="200.0" prefWidth="300.0">
 
     <center>
@@ -18,8 +18,11 @@
             <Label text="%create_project.project_name" GridPane.columnIndex="0" GridPane.rowIndex="1" />
             <TextField fx:id="projectNameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-            <Label text="%create_project.project_description" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-            <TextField fx:id="projectDescriptionField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label text="%create_project.select_status" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+
+
+            <Label text="%create_project.project_description" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+            <TextField fx:id="projectDescriptionField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
 
             <Button fx:id="createButton" text="%project_create.button" onAction="#handleProjectCreation" GridPane.rowIndex="0" GridPane.columnIndex="3" />
 

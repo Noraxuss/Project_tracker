@@ -84,7 +84,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>my_projects.Launcher</mainClass>
+                            <mainClass>project_tracker_starter.Launcher</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
