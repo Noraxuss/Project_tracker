@@ -6,10 +6,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.collections.FXCollections?>
 <GridPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="project_tracker_frontend.application.controller.CreateTaskController"
-            prefHeight="400.0" prefWidth="600.0">
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="project_tracker_frontend.application.controller.CreateTaskController"
+          prefHeight="400.0" prefWidth="600.0">
 
     <Label fx:id="titleLabel" text="%create_task.title" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
@@ -18,6 +19,9 @@
 
     <Label text="%create_task.task_description" GridPane.columnIndex="0" GridPane.rowIndex="2" />
     <TextField fx:id="taskDescriptionField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+    <Label text="%create_task.task_status" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+    <ComboBox fx:id="taskStatusComboBox" GridPane.columnIndex="1" GridPane.rowIndex="3">
 
     <Button fx:id="createTaskButton" text="%create_task.create_task" onAction="#handleCreateTask"
             GridPane.columnIndex="0" GridPane.rowIndex="3" />

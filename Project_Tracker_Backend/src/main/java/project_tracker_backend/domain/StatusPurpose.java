@@ -7,7 +7,7 @@ public enum StatusPurpose {
 
     TASK("Task"),
     PROJECT("Project"),
-    Both("Both");
+    BOTH("Both");
 
     private final String purpose;
 

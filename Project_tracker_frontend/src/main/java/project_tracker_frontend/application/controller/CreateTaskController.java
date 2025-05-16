@@ -2,6 +2,7 @@ package project_tracker_frontend.application.controller;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import project_tracker_frontend.application.domain.CreateTaskModule;
@@ -14,6 +15,7 @@ import project_tracker_frontend.application.utilities.StatusSession;
 public class CreateTaskController implements SceneEngineAware, TaskServiceAware {
 
     public Label SystemResponseLabel;
+    public ComboBox taskStatusComboBox;
     private SceneEngine sceneEngine;
     private TaskService taskService;
 

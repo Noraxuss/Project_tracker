@@ -6,4 +6,7 @@ import project_tracker_backend.domain.Status;
 
 @Repository
 public interface StatusRepository extends JpaRepository<Status, Long> {
+    boolean existsByName(String name);
+
+    Status getStatusByName(String name);
 }
