@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import project_tracker_backend.domain.Status;
 import project_tracker_backend.domain.StatusPurpose;
+import project_tracker_backend.dto.incoming.StatusCommandForProjects;
 import project_tracker_backend.dto.incoming.StatusCommandForTasks;
 import project_tracker_backend.repository.StatusRepository;
 
@@ -21,6 +22,7 @@ public class StatusService {
     }
 
     public Status findStatusById(long id) {
+        // TODO Optional
         return statusRepository.findById(id).orElse(null);
     }
 
@@ -29,6 +31,7 @@ public class StatusService {
         if (statusRepository.existsByName(statusCommandForTasks.getName())) {
             // TODO Optional
             status = statusRepository.getStatusByName(statusCommandForTasks.getName());
+
             if (status.getStatusPurpose().equals(StatusPurpose.PROJECT)) {
                 status.setStatusPurpose(StatusPurpose.BOTH);
             }
@@ -38,13 +41,18 @@ public class StatusService {
         }
     }
 
-    private void createStatus(String name, Long statusId,
-                              Long projectId, StatusPurpose statusPurpose) {
+    public void createStatusForProjects(StatusCommandForProjects statusCommandForProjects) {
+        Status status;
+        if (statusRepository.existsByName(statusCommandForProjects.getName())) {
+            // TODO Optional
+            status = statusRepository.getStatusByName(statusCommandForProjects.getName());
 
-    }
-
-
-    public void createStatusForProjects(StatusCommandForTasks statusCommandForTasks) {
-
+            if (status.getStatusPurpose().equals(StatusPurpose.PROJECT)) {
+                status.setStatusPurpose(StatusPurpose.BOTH);
+            }
+        } else {
+            status = modelMapper.map(statusCommandForProjects, Status.class);
+            status.setStatusPurpose(StatusPurpose.TASK);
+        }
     }
 }

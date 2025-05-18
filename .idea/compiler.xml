@@ -7,9 +7,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="project_tracker_logging" />
+        <module name="Project_Tracker_Logging" />
         <module name="project_tracker_frontend" />
         <module name="project_tracker_starter" />
-        <module name="Project_Tracker_Logging" />
       </profile>
       <profile name="Annotation profile for project_tracker_root" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />

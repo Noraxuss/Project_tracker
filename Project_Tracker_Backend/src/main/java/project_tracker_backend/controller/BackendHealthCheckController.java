@@ -12,5 +12,4 @@ public class BackendHealthCheckController {
     public String healthCheck() {
         return "Backend is running";
     }
-
 }

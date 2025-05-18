@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import project_tracker_backend.dto.incoming.StatusCommandForProjects;
 import project_tracker_backend.dto.incoming.StatusCommandForTasks;
 import project_tracker_backend.service.StatusService;
 
@@ -12,7 +13,7 @@ import project_tracker_backend.service.StatusService;
 @RequestMapping("/api/status")
 public class StatusController {
 
-    private StatusService statusService;
+    private final StatusService statusService;
 
     @Autowired
     public StatusController(StatusService statusService) {
@@ -26,8 +27,8 @@ public class StatusController {
     }
 
     @PostMapping("/create-project-status")
-    public ResponseEntity<Void> updateProjectStatus(StatusCommandForTasks statusCommandForTasks) {
-        statusService.createStatusForProjects(statusCommandForTasks);
+    public ResponseEntity<Void> updateProjectStatus(StatusCommandForProjects statusCommandForProjects) {
+        statusService.createStatusForProjects(statusCommandForProjects);
         return ResponseEntity.ok().build();
     }
 
