@@ -6,7 +6,7 @@ import project_tracker_frontend.application.domain.UserModule;
 import project_tracker_frontend.application.dto.incoming.LoginCommand;
 import project_tracker_frontend.application.dto.outgoing.LoginDetails;
 import project_tracker_frontend.application.dto.outgoing.RegisterUserDetails;
-import project_tracker_frontend.application.utilities.UserSession;
+import project_tracker_frontend.application.application_state.UserState;
 
 public class UserService {
 
@@ -27,8 +27,8 @@ public class UserService {
 
         LoginCommand loginCommand = UserConnector.getLogin(loginDetails);
 
-        UserSession userSession = UserSession.getInstance();
-        userSession.setUserId(loginCommand.id());
-        userSession.setUserName(loginCommand.userName());
+        UserState userState = UserState.getInstance();
+        userState.setUserId(loginCommand.id());
+        userState.setUserName(loginCommand.userName());
     }
 }

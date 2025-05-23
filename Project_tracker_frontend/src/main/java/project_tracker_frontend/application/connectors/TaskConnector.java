@@ -6,8 +6,8 @@ import project_tracker_frontend.application.dto.incoming.TaskDataCommand;
 import project_tracker_frontend.application.dto.outgoing.CreateTaskDetails;
 import project_tracker_frontend.application.service.ServiceFactory;
 import project_tracker_frontend.application.service.TaskService;
-import project_tracker_frontend.application.utilities.ProjectSession;
-import project_tracker_frontend.application.utilities.TaskSession;
+import project_tracker_frontend.application.application_state.ProjectState;
+import project_tracker_frontend.application.application_state.TaskState;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -33,7 +33,7 @@ public class TaskConnector {
             ObjectNode jsonPayload = objectMapper.createObjectNode();
             jsonPayload.put("name", createTaskDetails.name());
             jsonPayload.put("description", createTaskDetails.description());
-            jsonPayload.put("projectId", ProjectSession.getInstance().getCurrentProjectId());
+            jsonPayload.put("projectId", ProjectState.getInstance().getCurrentProjectId());
 
             // Convert JSON object to string
             String jsonInputString = objectMapper.writeValueAsString(jsonPayload);
@@ -41,7 +41,7 @@ public class TaskConnector {
             // Write JSON payload to output stream
             ConnectorUtilities.sendPostRequest(conn, jsonInputString);
 
-            ConnectorUtilities.getStatusCode(conn);
+//            ConnectorUtilities.getStatusCode(conn);
 
             // Read response
             response = ConnectorUtilities.getResponse(conn);
@@ -55,9 +55,9 @@ public class TaskConnector {
         try {
             HttpURLConnection conn = ConnectorUtilities.getHttpURLConnection
                     (ConnectorUtilities.BASE_URL + "tasks/task-details/" +
-                                    TaskSession.getInstance().getTaskId(), "GET");
+                                    TaskState.getInstance().getTaskId(), "GET");
 
-            ConnectorUtilities.getStatusCode(conn);
+//            ConnectorUtilities.getStatusCode(conn);
 
             // Read response
             response = new ObjectMapper().readValue(ConnectorUtilities.getResponse(conn),

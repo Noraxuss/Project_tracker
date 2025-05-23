@@ -32,7 +32,7 @@ public class BackendCheckerConnector {
             // Read response
             jsonResponse = ConnectorUtilities.getResponse(conn);
 
-            ConnectorUtilities.getStatusCode(conn);
+//            ConnectorUtilities.getStatusCode(conn);
 
             // Deserialize JSON response into a list of ProjectDetails
 //            ObjectMapper objectMapper = new ObjectMapper();

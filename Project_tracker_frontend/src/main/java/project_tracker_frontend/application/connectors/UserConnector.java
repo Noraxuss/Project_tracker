@@ -40,7 +40,7 @@ public class UserConnector {
             // Write JSON payload to output stream
             ConnectorUtilities.sendPostRequest(conn, jsonInputString);
 
-            ConnectorUtilities.getStatusCode(conn);
+//            ConnectorUtilities.getStatusCode(conn);
 
             // Read response
             response = ConnectorUtilities.getResponse(conn);
@@ -60,7 +60,7 @@ public class UserConnector {
             String response = ConnectorUtilities.getResponse(conn);
             ObjectMapper objectMapper = new ObjectMapper();
 
-            ConnectorUtilities.getStatusCode(conn);
+//            ConnectorUtilities.getStatusCode(conn);
 
             return objectMapper.readValue(response, LoginCommand.class);
         } catch (URISyntaxException | IOException e) {

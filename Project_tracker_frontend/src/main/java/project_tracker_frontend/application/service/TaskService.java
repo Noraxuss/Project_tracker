@@ -6,14 +6,14 @@ import project_tracker_frontend.application.domain.ProjectModuleWithTaskModuleLi
 import project_tracker_frontend.application.domain.TaskDataModule;
 import project_tracker_frontend.application.dto.incoming.TaskDataCommand;
 import project_tracker_frontend.application.dto.outgoing.CreateTaskDetails;
-import project_tracker_frontend.application.utilities.ProjectSession;
-import project_tracker_frontend.application.utilities.TaskSession;
+import project_tracker_frontend.application.application_state.ProjectState;
+import project_tracker_frontend.application.application_state.TaskState;
 
 public class TaskService {
 
     public ProjectModuleWithTaskModuleList getProjectWithTasks() {
         return ServiceFactory.getProjectService().getSelectedProjectWithTasksAndSubtasks
-                (ProjectSession.getInstance().getCurrentProjectId());
+                (ProjectState.getInstance().getCurrentProjectId());
     }
 
     public void createTask(CreateTaskModule createTaskModule) {
@@ -23,7 +23,7 @@ public class TaskService {
     }
 
     public void setSelectedTaskSession(Long selectedTaskId) {
-        TaskSession.getInstance().setTaskId(selectedTaskId);
+        TaskState.getInstance().setTaskId(selectedTaskId);
     }
 
     public TaskDataModule getTaskData() {

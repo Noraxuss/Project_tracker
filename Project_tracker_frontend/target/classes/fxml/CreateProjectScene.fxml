@@ -20,13 +20,14 @@
 
             <Label text="%create_project.select_status" GridPane.columnIndex="0" GridPane.rowIndex="2" />
 
-
             <Label text="%create_project.project_description" GridPane.columnIndex="0" GridPane.rowIndex="5" />
             <TextField fx:id="projectDescriptionField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
 
+            <ComboBox fx:id="projectStatusComboBox" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
             <Button fx:id="createButton" text="%project_create.button" onAction="#handleProjectCreation" GridPane.rowIndex="0" GridPane.columnIndex="3" />
 
-            <Label fx:id="SystemResponseLabel" GridPane.columnIndex="1" GridPane.rowIndex="4" style="-fx-text-fill: red"/>
+            <Label fx:id="systemResponseLabel" GridPane.columnIndex="1" GridPane.rowIndex="4" style="-fx-text-fill: red"/>
 
         </GridPane>
     </center>

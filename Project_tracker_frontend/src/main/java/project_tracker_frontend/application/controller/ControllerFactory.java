@@ -10,16 +10,18 @@ public class ControllerFactory {
     private final ProjectService projectService;
     private final TaskService taskService;
     private final UserService userService;
+    private final StatusService statusService;
     private final BackendCheckerService backendCheckerService;
 
     public ControllerFactory(SceneEngine sceneEngine,
                              ProjectService projectService,
                              TaskService taskService,
-                             UserService userService, BackendCheckerService backendCheckerservice) {
+                             UserService userService, StatusService statusService, BackendCheckerService backendCheckerservice) {
         this.sceneEngine = sceneEngine;
         this.projectService = projectService;
         this.taskService = taskService;
         this.userService = userService;
+        this.statusService = statusService;
         this.backendCheckerService = backendCheckerservice;
     }
 
@@ -40,6 +42,9 @@ public class ControllerFactory {
             }
             if (controller instanceof BackendCheckerServiceAware) {
                 ((BackendCheckerServiceAware) controller).setBackendCheckerService(backendCheckerService);
+            }
+            if (controller instanceof StatusServiceAware) {
+                ((StatusServiceAware) controller).setStatusService(statusService);
             }
             return controller;
         } catch (Exception e) {

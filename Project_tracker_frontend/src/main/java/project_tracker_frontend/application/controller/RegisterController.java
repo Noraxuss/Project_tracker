@@ -11,7 +11,7 @@ import project_tracker_frontend.application.scene.SceneEngine;
 import project_tracker_frontend.application.scene.SceneEngineAware;
 import project_tracker_frontend.application.service.UserService;
 import project_tracker_frontend.application.service.UserServiceAware;
-import project_tracker_frontend.application.utilities.StatusSession;
+import project_tracker_frontend.application.application_state.StatusState;
 
 
 public class RegisterController implements SceneEngineAware, UserServiceAware {
@@ -51,7 +51,7 @@ public class RegisterController implements SceneEngineAware, UserServiceAware {
                 (new UserModule(usernameField.getText(),
                         passwordField.getText(), emailField.getText()));
 
-        SystemResponseLabel.setText(StatusSession.getInstance().getStatusCode());
+//        SystemResponseLabel.setText(StatusState.getInstance().getStatusCode());
 
         sceneEngine.switchScene("login");
 

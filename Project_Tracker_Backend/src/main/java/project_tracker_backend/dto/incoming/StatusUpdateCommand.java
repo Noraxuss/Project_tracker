@@ -5,8 +5,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class StatusCommandForProjects {
+public class StatusUpdateCommand {
 
+    private Long id;
     private String name;
-    private Long projectId;
+    private String statusPurpose;
+
 }

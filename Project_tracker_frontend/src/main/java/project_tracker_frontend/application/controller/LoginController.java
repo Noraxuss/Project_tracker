@@ -11,8 +11,8 @@ import project_tracker_frontend.application.scene.SceneEngine;
 import project_tracker_frontend.application.scene.SceneEngineAware;
 import project_tracker_frontend.application.service.UserService;
 import project_tracker_frontend.application.service.UserServiceAware;
-import project_tracker_frontend.application.utilities.StatusSession;
-import project_tracker_frontend.application.utilities.UserSession;
+import project_tracker_frontend.application.application_state.StatusState;
+import project_tracker_frontend.application.application_state.UserState;
 
 public class LoginController implements SceneEngineAware, UserServiceAware {
 
@@ -50,11 +50,11 @@ public class LoginController implements SceneEngineAware, UserServiceAware {
 
         userService.loginUser(loginModule);
 
-        if (UserSession.getInstance() != null) {
+        if (UserState.getInstance() != null) {
             // Handle successful login (e.g., switch to the main menu scene)
             sceneEngine.switchScene("menu");
             // Optionally, you can update a label to show the success message
-            systemResponseLabel.setText(StatusSession.getInstance().getStatusCode());
+//            systemResponseLabel.setText(StatusState.getInstance().getStatusCode());
         } else {
             // Optionally, you can update a label to show the error message
             systemResponseLabel.setText("Invalid username or password");

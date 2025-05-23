@@ -10,7 +10,7 @@ import project_tracker_frontend.application.scene.SceneEngine;
 import project_tracker_frontend.application.scene.SceneEngineAware;
 import project_tracker_frontend.application.service.TaskService;
 import project_tracker_frontend.application.service.TaskServiceAware;
-import project_tracker_frontend.application.utilities.StatusSession;
+import project_tracker_frontend.application.application_state.StatusState;
 
 public class CreateTaskController implements SceneEngineAware, TaskServiceAware {
 
@@ -27,7 +27,7 @@ public class CreateTaskController implements SceneEngineAware, TaskServiceAware 
     public void handleCreateTask(ActionEvent actionEvent) {
         taskService.createTask(new CreateTaskModule
                 (taskNameField.getText(), taskDescriptionField.getText()));
-        SystemResponseLabel.setText(StatusSession.getInstance().getStatusCode());
+//        SystemResponseLabel.setText(StatusState.getInstance().getStatusCode());
         sceneEngine.switchScene("task_tree");
     }
 

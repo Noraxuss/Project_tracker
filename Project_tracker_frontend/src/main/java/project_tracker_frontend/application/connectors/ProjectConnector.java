@@ -8,7 +8,7 @@ import project_tracker_frontend.application.dto.outgoing.ProjectDetails;
 import project_tracker_frontend.application.dto.outgoing.ProjectIdDetails;
 import project_tracker_frontend.application.service.ProjectService;
 import project_tracker_frontend.application.service.ServiceFactory;
-import project_tracker_frontend.application.utilities.UserSession;
+import project_tracker_frontend.application.application_state.UserState;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -36,7 +36,7 @@ public class ProjectConnector {
             ObjectNode jsonPayload = objectMapper.createObjectNode();
             jsonPayload.put("name", projectDetails.projectName());
             jsonPayload.put("description", projectDetails.projectDescription());
-            jsonPayload.put("userId", UserSession.getInstance().getUserId());
+            jsonPayload.put("userId", UserState.getInstance().getUserId());
 
             // Convert JSON object to string
             String jsonInputString = objectMapper.writeValueAsString(jsonPayload);
@@ -44,7 +44,7 @@ public class ProjectConnector {
             // Write JSON payload to output stream
             ConnectorUtilities.sendPostRequest(conn, jsonInputString);
 
-            ConnectorUtilities.getStatusCode(conn);
+//            ConnectorUtilities.getStatusCode(conn);
 
             // Read response
             response = ConnectorUtilities.getResponse(conn);
@@ -63,7 +63,7 @@ public class ProjectConnector {
             // Read response
             String jsonResponse = ConnectorUtilities.getResponse(conn);
 
-            ConnectorUtilities.getStatusCode(conn);
+//            ConnectorUtilities.getStatusCode(conn);
 
             // Deserialize JSON response into a list of ProjectDetails
             ObjectMapper objectMapper = new ObjectMapper();
@@ -86,7 +86,7 @@ public class ProjectConnector {
             String jsonResponse = ConnectorUtilities.getResponse(conn);
             ObjectMapper objectMapper = new ObjectMapper();
 
-            ConnectorUtilities.getStatusCode(conn);
+//            ConnectorUtilities.getStatusCode(conn);
 
             response = objectMapper.readValue(jsonResponse,
                     objectMapper.getTypeFactory().

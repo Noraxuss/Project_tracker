@@ -5,8 +5,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class StatusCommandForTasks {
+public class StatusCommand {
 
     private String name;
-    private Long taskId;
+    private String statusPurpose;
 }

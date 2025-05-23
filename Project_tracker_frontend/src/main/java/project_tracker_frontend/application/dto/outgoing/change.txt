@@ -1,0 +1,1 @@
+add a parent class to all details

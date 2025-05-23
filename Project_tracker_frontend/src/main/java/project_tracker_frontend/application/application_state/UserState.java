@@ -1,22 +1,22 @@
-package project_tracker_frontend.application.utilities;
+package project_tracker_frontend.application.application_state;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class UserSession {
-    private static UserSession instance;
+public class UserState {
+    private static UserState instance;
     private Long userId;
     private String userName;
 
-    private UserSession() {
+    private UserState() {
         // Private constructor to prevent instantiation
     }
 
-    public static UserSession getInstance() {
+    public static UserState getInstance() {
         if (instance == null) {
-            instance = new UserSession();
+            instance = new UserState();
         }
         return instance;
     }

@@ -1,0 +1,10 @@
+2025-05-23 15:54:34 - ERROR - project_tracker_starter.Launcher - Error starting backend: Error
+creating bean with name 'entityManagerFactory' defined in class path resource
+[org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Failed to
+initialize dependency 'flywayInitializer' of LoadTimeWeaverAware bean 'entityManagerFactory': Error
+creating bean with name 'flywayInitializer' defined in class path resource
+[org/springframework/boot/autoconfigure/flyway/FlywayAutoConfiguration$FlywayConfiguration.class]:
+Validate failed: Migrations have failed validation
+Detected failed migration to version 1.0.5 (Adding Default Project And Task Statuses).
+Please remove any half-completed changes then run repair to fix the schema history.
+Need more flexibility with validation rules? Learn more: https://rd.gt/3AbJUZE

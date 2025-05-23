@@ -1,6 +1,6 @@
 package project_tracker_frontend.application.connectors;
 
-import project_tracker_frontend.application.utilities.StatusSession;
+import project_tracker_frontend.application.application_state.StatusState;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -48,10 +48,10 @@ public class ConnectorUtilities {
         }
     }
 
-    protected static void getStatusCode(HttpURLConnection conn) throws IOException {
-        String statusCode = String.valueOf(conn.getResponseCode());
-        StatusSession.getInstance().setStatusCode(statusCode);
-    }
+//    protected static void getStatusCode(HttpURLConnection conn) throws IOException {
+//        String statusCode = String.valueOf(conn.getResponseCode());
+//        StatusState.getInstance().setStatusCode(statusCode);
+//    }
 
 //    public static final String BASE_URL = "https://localhost:3306/api/";
 //

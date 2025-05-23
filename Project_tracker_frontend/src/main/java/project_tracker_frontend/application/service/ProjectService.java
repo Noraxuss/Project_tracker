@@ -9,8 +9,8 @@ import project_tracker_frontend.application.dto.incoming.ProjectCommand;
 import project_tracker_frontend.application.dto.incoming.ProjectWithTasksCommand;
 import project_tracker_frontend.application.dto.outgoing.ProjectDetails;
 import project_tracker_frontend.application.dto.outgoing.ProjectIdDetails;
-import project_tracker_frontend.application.utilities.ProjectSession;
-import project_tracker_frontend.application.utilities.UserSession;
+import project_tracker_frontend.application.application_state.ProjectState;
+import project_tracker_frontend.application.application_state.UserState;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ public class ProjectService {
 
     public List<ProjectListModule> getProjectList() {
         List<ProjectCommand> projectCommandList = ProjectConnector
-                .getAllProjects(UserSession.getInstance().getUserId());
+                .getAllProjects(UserState.getInstance().getUserId());
         List<ProjectListModule> projectListModules = new ArrayList<>();
         for (ProjectCommand projectCommand : projectCommandList) {
             ProjectListModule projectListModule = new ProjectListModule
@@ -38,8 +38,8 @@ public class ProjectService {
     }
 
     public void selectProject(Long id) {
-        ProjectSession.getInstance();
-        ProjectSession.getInstance().setCurrentProjectId(id);
+        ProjectState.getInstance();
+        ProjectState.getInstance().setCurrentProjectId(id);
     }
 
     public ProjectModuleWithTaskModuleList getSelectedProjectWithTasksAndSubtasks(Long projectId) {

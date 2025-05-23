@@ -1,0 +1,12 @@
+2025-05-22 18:11:55 - ERROR - project_tracker_starter.Launcher - Error starting backend: Error
+creating bean with name 'projectController' defined in file
+[C:\Users\Lenovo\IdeaProjects\Project_tracker_root\Project_Tracker_Backend\target\classes\project_tr
+cker_backend\controller\ProjectController.class]: Unsatisfied dependency expressed through
+constructor parameter 0: Error creating bean with name 'projectService' defined in file
+[C:\Users\Lenovo\IdeaProjects\Project_tracker_root\Project_Tracker_Backend\target\classes\project_tr
+cker_backend\service\ProjectService.class]: Unsatisfied dependency expressed through constructor
+parameter 4: Error creating bean with name 'statusService' defined in file
+[C:\Users\Lenovo\IdeaProjects\Project_tracker_root\Project_Tracker_Backend\target\classes\project_tr
+cker_backend\service\StatusService.class]: Unsatisfied dependency expressed through constructor
+parameter 0: Error creating bean with name 'projectService': Requested bean is currently in
+creation: Is there an unresolvable circular reference or an asynchronous initialization dependency?

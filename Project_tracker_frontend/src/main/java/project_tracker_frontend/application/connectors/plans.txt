@@ -1,0 +1,4 @@
+Use jsonplayloadfactory
+delet unnecessery classes and methods
+create an endpointbank -- ENUM
+change details from records to classes with parent class

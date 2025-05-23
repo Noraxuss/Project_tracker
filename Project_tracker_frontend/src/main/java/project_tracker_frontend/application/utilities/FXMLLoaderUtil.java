@@ -18,6 +18,7 @@ package project_tracker_frontend.application.utilities;
                     ServiceFactory.getProjectService(),
                     ServiceFactory.getTaskService(),
                     ServiceFactory.getUserService(),
+                    ServiceFactory.getStatusService(),
                     ServiceFactory.getBackendCheckerService()
             );
         }
