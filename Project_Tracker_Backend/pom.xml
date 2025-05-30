@@ -10,7 +10,7 @@
 	</parent>
 
 	<artifactId>project_tracker_backend</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0-SNAPSHOT</version>
 	<name>Project_Tracker_Backend</name>
 	<description>Project_Tracker_Backend</description>
 	<properties>
@@ -108,7 +108,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.11.0</version> <!-- You can adjust this if needed -->
+				<version>3.11.0</version>
 				<configuration>
 					<source>21</source>
 					<target>21</target>
@@ -116,7 +116,7 @@
 						<path>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
-							<version>1.18.30</version> <!-- Ensure this matches your Lombok dependency -->
+							<version>1.18.30</version>
 						</path>
 					</annotationProcessorPaths>
 				</configuration>
@@ -126,7 +126,22 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<!-- No extra configuration is needed unless you're customizing packaging -->
+				<version>3.4.4</version>
+			</plugin>
+
+			<!-- Flyway Maven Plugin for database migrations -->
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>11.4.1</version>
+				<configuration>
+					<url>jdbc:mysql://localhost:8080/feedback_intern</url>
+					<user>test</user>
+					<password>develop</password>
+					<locations>
+						<location>classpath:db/migration</location>
+					</locations>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

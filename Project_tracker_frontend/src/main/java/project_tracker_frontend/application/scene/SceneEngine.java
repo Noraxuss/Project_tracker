@@ -3,8 +3,14 @@ package project_tracker_frontend.application.scene;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.SplitPane;
 import javafx.stage.Stage;
+import lombok.Getter;
+import lombok.Setter;
+import org.controlsfx.control.HiddenSidesPane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import project_tracker_frontend.application.controller.BaseLayoutController;
+import project_tracker_frontend.application.controller.controller_utilities.BaseLayoutControllerAware;
 import project_tracker_frontend.application.utilities.FXMLLoaderUtil;
 import project_tracker_frontend.application.utilities.onekeytwovaluemap.OneKeyTwoValueMap;
 
@@ -13,20 +19,24 @@ import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.util.Properties;
 
-public class SceneEngine {
+public class SceneEngine implements BaseLayoutControllerAware {
 
     public static final String SCENES_PROPERTIES = "/scene_data/scenes.properties";
     public static final String SCENE_PAIRS_PROPERTIES = "/scene_data/scene_pairs.properties";
     private final Stage stage;
     private final Properties scenePairings;
     private final OneKeyTwoValueMap<String, String, String> sceneMap;
+    @Getter
     private final OneKeyTwoValueMap<String, Parent, String> sceneCache;
-    private final SplitPane splitPane;
+    private BaseLayoutController baseLayoutController;
+    @Setter
+    private HiddenSidesPane hiddenSidesPane;
+
+    private static final Logger logger = LoggerFactory.getLogger(SceneEngine.class);
 
     public SceneEngine(Stage stage) {
         this.stage = stage;
-        this.splitPane = new SplitPane();
-        // TODO scenefiles is obsolete, remove it after adjusting the code
+        // TODO scene files is obsolete, remove it after adjusting the code
         this.scenePairings = new Properties();
         this.sceneMap = new OneKeyTwoValueMap<>();
         this.sceneCache = new OneKeyTwoValueMap<>();
@@ -37,6 +47,11 @@ public class SceneEngine {
         loadScenePairings();
     }
 
+    /**
+     * Loads the scene pairings from the properties file.
+     * The properties file should be in the format:
+     * sceneName=otherSceneName
+     */
     private void loadScenePairings() {
         try (InputStream input = getClass().getResourceAsStream(SCENE_PAIRS_PROPERTIES)) {
             if (input == null) {
@@ -48,19 +63,11 @@ public class SceneEngine {
         }
     }
 
-    public void initializeStage(String starterScene)  {
-        LeftScene.getInstance();
-        RightScene.getInstance();
-
-        switchScene(starterScene);
-
-        Scene scene = new Scene(splitPane, 800, 600);
-
-        stage.setScene(scene);
-        stage.setResizable(true);
-        stage.show();
-    }
-
+    /**
+     * Loads the scene map from the properties file.
+     * The properties file should be in the format:
+     * sceneName=fxmlFilePath=sceneSide
+     */
     private void loadSceneMap() {
         try (InputStream input = getClass().getResourceAsStream(SCENES_PROPERTIES)) {
             if (input == null) {
@@ -81,46 +88,118 @@ public class SceneEngine {
         }
     }
 
-    public void switchScene(String sceneName) {
-        String sceneSide = sceneMap.get(sceneName).getValue2();
-        String otherSceneName = scenePairings.getProperty(sceneName);
+    /**
+     * Initializes the stage with the given starter scene.
+     * It sets up the center and sidebar scenes, initializes the hidden pane,
+     * and switches to the starter scene.
+     * The hidden pane is used to manage the visibility of the center and sidebar scenes.
+     */
+    public void initializeStage(String starterScene, String loading) {
+        CenterScene.getInstance();
+        SideBarScene.getInstance();
+        switchScene(starterScene);
+        Scene scene = null;
 
+        // Load the base layout controller
+        scene = new Scene(sceneCache.get("base").getValue1(), 800, 600);
+        stage.setScene(scene);
+
+        // Initialize the hidden pane with the center scene
         try {
-            if (sceneSide.equalsIgnoreCase("left")) {
-                updateScenes(sceneName, otherSceneName, LeftScene.getInstance(), RightScene.getInstance());
-            } else if (sceneSide.equalsIgnoreCase("right")) {
-                updateScenes(sceneName, otherSceneName, RightScene.getInstance(), LeftScene.getInstance());
+            baseLayoutController.setLeftSideBarToLeftSide(cacheScene("empty"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        switchScene(loading);
+        stage.setResizable(true);
+        stage.show();
+    }
+
+    /**
+     * Switches the scene based on the given scene name.
+     * It checks the scene placement (side, center, extra) and updates the scenes accordingly.
+     * If the scene is not found, it throws an IllegalArgumentException.
+     */
+    public void switchScene(String sceneName) {
+        String scenePlacement = sceneMap.get(sceneName).getValue2();
+        // Validate scene name and placement
+        try {
+            if (scenePlacement.equalsIgnoreCase("side")) {
+                updateScenes(sceneName, SideBarScene.getInstance());
+            } else if (scenePlacement.equalsIgnoreCase("center")) {
+                updateScenes(sceneName, CenterScene.getInstance());
+            } else if (scenePlacement.equalsIgnoreCase("extra")) {
+                updateScenes(sceneName, new ExtraScene());
+            } else if (scenePlacement.equalsIgnoreCase("all")) {
+                cacheScene(sceneName);
             } else {
-                throw new IllegalArgumentException("Invalid scene side: " + sceneSide);
+                throw new IllegalArgumentException("Invalid scene side: " + scenePlacement);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        // TODO this might not be necessary
-        splitPane.getItems().clear();
-        splitPane.getItems().addAll(LeftScene.getInstance().getScene(),
-                RightScene.getInstance().getScene());
     }
 
-    private void updateScenes(String primarySceneName, String secondarySceneName,
-                              BaseScene primaryScene, BaseScene secondaryScene) throws IOException {
-        primaryScene.setName(primarySceneName);
-        primaryScene.setScene(cacheScene(primarySceneName));
-        invokeOnSceneLoad(primaryScene);
+    /**
+     * Updates the scenes based on the scene name and FXML file path.
+     * It sets the name, caches the scene, and updates the hidden pane accordingly.
+     * It also invokes the onSceneLoad method on the controller of the BaseScene instance.
+     */
+    private void updateScenes(String sceneName, BaseScene instance) throws IOException {
+        instance.setName(sceneName);
+        // is this redundant?
+        Parent scene = cacheScene(sceneName);
+        instance.setScene(scene, instance.getController());
 
-        secondaryScene.setName(secondarySceneName);
-        secondaryScene.setScene(cacheScene(secondarySceneName));
-        invokeOnSceneLoad(secondaryScene);
+        // Update the hidden pane based on the scene name
+        if (sceneName.equals(CenterScene.getInstance().getName())) {
+            baseLayoutController.setContentToContentPane(scene);
+        } else if (sceneName.equals(SideBarScene.getInstance().getName())) {
+            baseLayoutController.setLeftSideBarToLeftSide(scene);
+        } else if (sceneName.equals(instance.getName())) {
+            makeExtraStages(scene);
+        }
+
+        // Invoke the onSceneLoad method on the controller
+        invokeOnSceneLoad(instance);
     }
 
+    /**
+     * Creates and shows an extra stage for the given scene.
+     * The extra stage is used for scenes that are not the main center or sidebar scenes.
+     * like: "Settings", "About", "Login", "Register", "Create Project", "Create Task", etc.
+     */
+    private void makeExtraStages(Parent scene) {
+        // TODO make a class that has a list that can hold BaseScenes, and add any and all extrascenes there
+        // that class will have its own methods to close the stage, the scene and so on
+        // singleton class so that the controllers can easily access it OR create an injection for it
+        // so that it can only be added to other things by injections
+        ExtraScene extraScene = new ExtraScene();
+        extraScene.initializeExtraStage(scene);
+        Stage extraStage = extraScene.getExtraStage();
+        invokeOnSceneLoad(extraScene);
+        extraStage.show();
+    }
+
+    /**
+     * Invokes the onSceneLoad method on the controller of the BaseScene instance.
+     * This method uses reflection to find and invoke the method.
+     * If the method is not found, it will be ignored.
+     * If an error occurs during invocation, a RuntimeException will be thrown.
+     */
     private void invokeOnSceneLoad(BaseScene instance) {
+        // This method uses reflection to invoke the onSceneLoad
+        // method on the controller of the BaseScene instance.
         try {
             Object controller = instance.getController();
             if (controller == null) {
                 throw new NoSuchMethodException("Controller is null");
             }
+            // Check if the controller has the onSceneLoad method
             Method onSceneLoadMethod = controller.getClass().getDeclaredMethod("onSceneLoad");
 
+            // Invoke the onSceneLoad method
             onSceneLoadMethod.invoke(controller);
         } catch (NoSuchMethodException ignored) {
             // Method not found, ignore
@@ -130,7 +209,13 @@ public class SceneEngine {
         }
     }
 
+    /**
+     * Caches the scene by its name.
+     * If the scene is already cached, it returns the cached scene.
+     * Otherwise, it loads the scene from the FXML file and caches it.
+     */
     private Parent cacheScene(String sceneName) throws IOException {
+
         Parent scene;
         if (sceneCache.containsKey(sceneName)) {
             scene = sceneCache.get(sceneName).getValue1();
@@ -147,15 +232,25 @@ public class SceneEngine {
         return scene;
     }
 
+    /**
+     * Saves the controller in the corresponding BaseScene instance.
+     * This method is used to save the controller after loading the scene.
+     * It checks which scene is being loaded and saves the controller accordingly.
+     */
     private void saveController(String sceneName, Parent scene, Object controller) {
         // Save the controller in the corresponding BaseScene
-        if (sceneName.equals(LeftScene.getInstance().getName())) {
-            LeftScene.getInstance().setScene(scene, controller);
-        } else if (sceneName.equals(RightScene.getInstance().getName())) {
-            RightScene.getInstance().setScene(scene, controller);
+        if (sceneName.equals(CenterScene.getInstance().getName())) {
+            CenterScene.getInstance().setScene(scene, controller);
+        } else if (sceneName.equals(SideBarScene.getInstance().getName())) {
+            SideBarScene.getInstance().setScene(scene, controller);
         }
     }
 
+    /**
+     * Loads the FXML file for the given scene name.
+     * It uses the FXMLLoaderUtil to load the FXML file.
+     * If the scene name is not found, it throws an IllegalArgumentException.
+     */
     private FXMLLoader loadScene(String name) throws IOException {
         String fxmlFile = sceneMap.get(name).getValue1();
         if (fxmlFile == null) {
@@ -164,7 +259,10 @@ public class SceneEngine {
         return FXMLLoaderUtil.loadFXML(fxmlFile);
     }
 
-    public void clearCache() {
-        sceneCache.clear();
+    @Override
+    public void setLayoutController(BaseLayoutController layoutController) {
+        this.baseLayoutController = layoutController;
     }
+
+
 }

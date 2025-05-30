@@ -11,6 +11,7 @@ import project_tracker_backend.dto.incoming.StatusUpdateCommand;
 import project_tracker_backend.dto.outgoing.StatusDetails;
 import project_tracker_backend.repository.StatusRepository;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -92,5 +93,13 @@ public class StatusService {
 
     public Status findStatusById(long id) {
         return statusRepository.findById(id).orElse(null);
+    }
+
+    public List<String> getStatusPurposeList() {
+        List<String> statusPurposes = new ArrayList<>();
+        for (StatusPurpose statusPurpose : StatusPurpose.values()) {
+            statusPurposes.add(statusPurpose.getPurpose());
+        }
+        return statusPurposes;
     }
 }

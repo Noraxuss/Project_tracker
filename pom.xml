@@ -12,7 +12,7 @@
         <module>project_tracker_backend</module>
         <module>project_tracker_frontend</module>
         <module>project_tracker_starter</module>
-        <module>Project_Tracker_Logging</module>
+        <module>project_tracker_logging</module>
     </modules>
 
     <dependencyManagement>

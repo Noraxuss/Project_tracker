@@ -1,0 +1,14 @@
+2025-05-29 20:52:03 - INFO - p.config.LoggingAspect - Entering method: getModelMapper
+2025-05-29 20:52:04 - INFO - p.config.LoggingAspect - Exiting method: getModelMapper
+2025-05-29 20:52:05 - INFO - p.config.LoggingAspect - Entering method: onApplicationEvent
+2025-05-29 20:52:05 - INFO - p.listeners.CreateFlag - Created flag file:
+C:\Users\Lenovo\IdeaProjects\Project_tracker_root\flags\backend_ready.flag
+2025-05-29 20:52:05 - INFO - p.config.LoggingAspect - Exiting method: onApplicationEvent
+2025-05-29 20:59:31 - INFO - p.config.LoggingAspect - Entering method: getModelMapper
+2025-05-29 20:59:31 - INFO - p.config.LoggingAspect - Exiting method: getModelMapper
+2025-05-29 20:59:33 - INFO - p.config.LoggingAspect - Entering method: onApplicationEvent
+2025-05-29 20:59:33 - INFO - p.listeners.CreateFlag - Created flag file:
+C:\Users\Lenovo\IdeaProjects\Project_tracker_root\flags\backend_ready.flag
+2025-05-29 20:59:33 - INFO - p.config.LoggingAspect - Exiting method: onApplicationEvent
+2025-05-29 20:59:34 - INFO - p.config.LoggingAspect - Entering method: healthCheck
+2025-05-29 20:59:34 - INFO - p.config.LoggingAspect - Exiting method: healthCheck

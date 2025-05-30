@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.controlsfx.control.HiddenSidesPane?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="project_tracker_frontend.application.controller.BaseLayoutController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <top>
+        <ToolBar>
+            <MenuButton text="File">
+                <MenuItem text="New Project" onAction="#handleNewProject"/>
+                <MenuItem text="Open" onAction="#handleOpen"/>
+                <MenuItem text="Exit" onAction="#handleExit"/>
+            </MenuButton>
+
+            <MenuButton text="Help">
+                <MenuItem text="About" onAction="#handleAbout"/>
+            </MenuButton>
+        </ToolBar>
+    </top>
+
+    <center>
+        <HiddenSidesPane fx:id="contentPane" />
+    </center>
+
+
+</BorderPane>

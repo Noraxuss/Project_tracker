@@ -1,5 +1,6 @@
 package project_tracker_frontend.application.controller;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -61,6 +62,7 @@ public class RegisterController implements SceneEngineAware, UserServiceAware {
     public void handleBack(ActionEvent actionEvent) {
         // Switch back to the login scene
         sceneEngine.switchScene("login");
+        Platform.exit();
     }
 
     @Override

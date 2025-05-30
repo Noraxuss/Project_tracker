@@ -1,5 +1,6 @@
 package project_tracker_frontend.application.controller;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -7,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import project_tracker_frontend.application.domain.LoginModule;
+import project_tracker_frontend.application.scene.ExtraScene;
 import project_tracker_frontend.application.scene.SceneEngine;
 import project_tracker_frontend.application.scene.SceneEngineAware;
 import project_tracker_frontend.application.service.UserService;
@@ -51,8 +53,10 @@ public class LoginController implements SceneEngineAware, UserServiceAware {
         userService.loginUser(loginModule);
 
         if (UserState.getInstance() != null) {
+
             // Handle successful login (e.g., switch to the main menu scene)
-            sceneEngine.switchScene("menu");
+
+            sceneEngine.switchScene("projects");
             // Optionally, you can update a label to show the success message
 //            systemResponseLabel.setText(StatusState.getInstance().getStatusCode());
         } else {

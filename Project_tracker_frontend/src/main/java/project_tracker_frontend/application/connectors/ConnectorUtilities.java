@@ -24,7 +24,6 @@ public class ConnectorUtilities {
             while ((responseLine = reader.readLine()) != null) {
                 response.append(responseLine.trim());
             }
-            reader.close();
             return response.toString();
         }
     }

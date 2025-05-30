@@ -86,4 +86,22 @@ public class StatusConnector {
             throw new RuntimeException(e);
         }
     }
+
+    public static List<String> getStatusPurposeList() {
+        String response;
+        try {
+            HttpURLConnection conn = ConnectorUtilities.getHttpURLConnection
+                    (ConnectorUtilities.BASE_URL + STATUS + "/get-status-purpose-list",
+            "GET");
+
+            response = ConnectorUtilities.getResponse(conn);
+            ObjectMapper objectMapper = new ObjectMapper();
+            return objectMapper.readValue(response,
+                    objectMapper.getTypeFactory().constructCollectionType(List.class, String.class));
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

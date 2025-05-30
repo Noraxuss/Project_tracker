@@ -2,13 +2,13 @@ package project_tracker_starter;
 
 import javafx.application.Application;
 import logging.LogFileCleanup;
-import project_tracker_starter.utilities.FlagUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-import project_tracker_frontend.application.AppStart;
 import project_tracker_backend.ProjectTrackerBackendApplication;
+import project_tracker_frontend.application.AppStart;
+import project_tracker_starter.utilities.FlagUtils;
 
 import java.util.Arrays;
 import java.util.List;

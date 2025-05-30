@@ -26,6 +26,10 @@ public class StatusState {
     @Setter
     private static List<StatusModel> sharedStatusList;
 
+    @Getter
+    @Setter
+    private static List<String> statusPurposeList;
+
     private static StatusService statusService;
 
     private StatusState() {
@@ -45,6 +49,11 @@ public class StatusState {
         requestTaskStatusList();
         requestProjectStatusList();
         requestSharedStatusList();
+        requestStatusPurposeList();
+    }
+
+    private static void requestStatusPurposeList() {
+        statusPurposeList = statusService.getStatusPurposeList();
     }
 
     private static void requestTaskStatusList() {

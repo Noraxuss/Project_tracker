@@ -40,6 +40,12 @@ public class StatusController {
         return ResponseEntity.ok().body(statusDetailsList);
     }
 
+    @GetMapping("/get-status-purpose-list")
+    public ResponseEntity<List<String>> getStatusPurposeList() {
+        List<String> statusPurpose = statusService.getStatusPurposeList();
+        return ResponseEntity.ok().body(statusPurpose);
+    }
+
     @PutMapping("/update-status")
     public ResponseEntity<Void> updateStatus(@RequestBody StatusUpdateCommand statusUpdateCommand) {
         statusService.updateStatus(statusUpdateCommand);

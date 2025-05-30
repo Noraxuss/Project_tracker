@@ -16,7 +16,7 @@ public class AppStart extends Application {
         SceneEngine sceneEngine = new SceneEngine(primaryStage);
         primaryStage.setTitle("Project Tracker");
 
-        sceneEngine.initializeStage("loading");
+        sceneEngine.initializeStage("base", "loading");
     }
 
     @Override

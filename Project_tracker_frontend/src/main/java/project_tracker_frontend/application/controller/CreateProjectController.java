@@ -40,7 +40,7 @@ public class CreateProjectController implements SceneEngineAware, ProjectService
     @FXML
     public Label systemResponseLabel;
 
-    public ObservableList<String> statusList;
+    private ObservableList<String> statusList;
 
     public void handleProjectCreation(ActionEvent actionEvent) {
         CreateProjectModule createProjectModule = new CreateProjectModule

@@ -74,6 +74,13 @@
             <version>2.0.17</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.controlsfx/controlsfx -->
+        <dependency>
+            <groupId>org.controlsfx</groupId>
+            <artifactId>controlsfx</artifactId>
+            <version>11.2.2</version>
+        </dependency>
+
     </dependencies>
 
     <build>

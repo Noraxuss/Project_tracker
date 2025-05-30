@@ -1,0 +1,2 @@
+2025-05-29 21:21:21 - ERROR - p.application.scene.SceneEngine - HiddenSidesPane[id=contentPane]is
+already inside a scene-graph and cannot be set as root

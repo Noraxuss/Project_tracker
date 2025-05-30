@@ -19,4 +19,8 @@ public class StatusService {
                 })
                 .toList();
     }
+
+    public List<String> getStatusPurposeList() {
+        return StatusConnector.getStatusPurposeList();
+    }
 }
