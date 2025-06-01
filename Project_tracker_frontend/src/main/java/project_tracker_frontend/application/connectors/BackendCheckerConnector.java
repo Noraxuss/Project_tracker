@@ -1,14 +1,11 @@
 package project_tracker_frontend.application.connectors;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import project_tracker_frontend.application.dto.incoming.ProjectCommand;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URISyntaxException;
-import java.util.List;
 
 
 public class BackendCheckerConnector {
@@ -42,7 +39,7 @@ public class BackendCheckerConnector {
         } catch (URISyntaxException | IOException | RuntimeException e) {
             logger.error(e.getMessage());
             logger.error(jsonResponse);
-            logger.error(response.toString());
+            logger.error(response);
             throw new RuntimeException(e);
         }
         return jsonResponse;

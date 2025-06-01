@@ -2,6 +2,7 @@ package project_tracker_frontend.application.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -48,10 +49,6 @@ public class ProjectController implements SceneEngineAware, ProjectServiceAware 
 
     @FXML
     public ListView<ProjectListModule> projectListView;
-
-    @FXML
-    public void initialize() {
-    }
 
     @FXML
     public void handleCreateProject(ActionEvent actionEvent) {

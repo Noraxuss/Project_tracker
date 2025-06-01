@@ -1,0 +1,8 @@
+2025-05-31 14:55:52 - INFO - p.config.LoggingAspect - Entering method: getModelMapper
+2025-05-31 14:55:52 - INFO - p.config.LoggingAspect - Exiting method: getModelMapper
+2025-05-31 14:55:52 - INFO - p.config.LoggingAspect - Entering method: onApplicationEvent
+2025-05-31 14:55:52 - INFO - p.listeners.CreateFlag - Created flag file:
+C:\Users\Ádám\IdeaProjects\Project_tracker\flags\backend_ready.flag
+2025-05-31 14:55:52 - INFO - p.config.LoggingAspect - Exiting method: onApplicationEvent
+2025-05-31 14:55:53 - INFO - p.config.LoggingAspect - Entering method: healthCheck
+2025-05-31 14:55:53 - INFO - p.config.LoggingAspect - Exiting method: healthCheck

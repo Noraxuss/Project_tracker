@@ -3,6 +3,7 @@ package project_tracker_frontend.application.scene;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,9 +29,8 @@ public class SceneEngine implements BaseLayoutControllerAware {
     private final OneKeyTwoValueMap<String, String, String> sceneMap;
     @Getter
     private final OneKeyTwoValueMap<String, Parent, String> sceneCache;
+    @Getter
     private BaseLayoutController baseLayoutController;
-    @Setter
-    private HiddenSidesPane hiddenSidesPane;
 
     private static final Logger logger = LoggerFactory.getLogger(SceneEngine.class);
 
@@ -98,18 +98,10 @@ public class SceneEngine implements BaseLayoutControllerAware {
         CenterScene.getInstance();
         SideBarScene.getInstance();
         switchScene(starterScene);
-        Scene scene = null;
 
         // Load the base layout controller
-        scene = new Scene(sceneCache.get("base").getValue1(), 800, 600);
+        Scene scene = new Scene(sceneCache.get("base").getValue1(), 800, 600);
         stage.setScene(scene);
-
-        // Initialize the hidden pane with the center scene
-        try {
-            baseLayoutController.setLeftSideBarToLeftSide(cacheScene("empty"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
 
         switchScene(loading);
         stage.setResizable(true);
@@ -123,6 +115,7 @@ public class SceneEngine implements BaseLayoutControllerAware {
      */
     public void switchScene(String sceneName) {
         String scenePlacement = sceneMap.get(sceneName).getValue2();
+        logger.info("Switching scene {}", sceneName);
         // Validate scene name and placement
         try {
             if (scenePlacement.equalsIgnoreCase("side")) {
@@ -171,15 +164,11 @@ public class SceneEngine implements BaseLayoutControllerAware {
      * like: "Settings", "About", "Login", "Register", "Create Project", "Create Task", etc.
      */
     private void makeExtraStages(Parent scene) {
-        // TODO make a class that has a list that can hold BaseScenes, and add any and all extrascenes there
-        // that class will have its own methods to close the stage, the scene and so on
-        // singleton class so that the controllers can easily access it OR create an injection for it
-        // so that it can only be added to other things by injections
         ExtraScene extraScene = new ExtraScene();
-        extraScene.initializeExtraStage(scene);
+        extraScene.initializeExtraStage(scene, stage);
         Stage extraStage = extraScene.getExtraStage();
         invokeOnSceneLoad(extraScene);
-        extraStage.show();
+        extraStage.showAndWait();
     }
 
     /**

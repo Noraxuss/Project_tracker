@@ -1,40 +1,36 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:8080/feedback_intern
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: test
-    password: develop
+    # Use H2 in file mode for persistent storage across application restarts
+    url: jdbc:h2:file:./data/Project_tracker_dev;AUTO_SERVER=TRUE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: password
+
+  h2:
+    console:
+      enabled: true            # Enables the web console at /h2-console
+      path: /h2-console        # Optional: set custom path for H2 console
 
   flyway:
-    # Flyway is used for automatic database schema migrations
-    url: jdbc:mysql://localhost:8080/feedback_intern
-    user: test
-    password: develop
-    locations: classpath:db/migration  # Migrations will be loaded from src/main/resources/db/migration
+    enabled: true              # Enable Flyway for DB migrations
+    locations: classpath:db/migration  # Migration scripts location
+    # Use the same H2 connection as datasource (so no need to re-specify url/user/password)
 
   jpa:
     hibernate:
-      ddl-auto: update  # Automatically update the schema to match the entities — OK for dev, not for prod
-    show-sql: true       # Logs all SQL statements to the console
+      ddl-auto: update         # Update schema automatically on startup (okay for dev only)
+    show-sql: true             # Print SQL queries to the console
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQLDialect  # Specifies MySQL-specific SQL syntax
+        dialect: org.hibernate.dialect.H2Dialect  # Use H2 dialect for compatibility
 
   sql:
     init:
-      mode: always  # Ensures schema/data SQL runs even if the DB exists — good for dev setup
+      mode: always             # Ensures schema/data.sql runs even if DB already exists
 
 server:
-  port: 3306  # Default dev port; change if needed to avoid conflicts
-
-# Uncomment and configure SSL if you want HTTPS in dev (not common)
-#  ssl:
-#    enabled: false
-#    key-store: classpath:keystore.p12
-#    key-store-password: dev1234
-#    key-store-type: PKCS12
-#    key-alias: my-ssl-cert
+  port: 8080                   # Default Spring Boot port (change only if it conflicts)
 
 logging:
   level:
-    org.springframework.web: DEBUG  # Enables debug logs for Spring web layer — useful for dev
+    org.springframework.web: DEBUG  # Enable detailed logs for Spring Web (good for dev)
