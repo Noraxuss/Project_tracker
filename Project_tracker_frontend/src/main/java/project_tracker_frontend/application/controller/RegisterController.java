@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import project_tracker_frontend.application.domain.UserModule;
 import project_tracker_frontend.application.scene.SceneEngine;
 import project_tracker_frontend.application.scene.SceneEngineAware;
@@ -54,15 +55,16 @@ public class RegisterController implements SceneEngineAware, UserServiceAware {
 
 //        SystemResponseLabel.setText(StatusState.getInstance().getStatusCode());
 
-        sceneEngine.switchScene("login");
+        Stage stage = (Stage) registerButton.getScene().getWindow();
+        stage.close();
 
     }
 
     @FXML
     public void handleBack(ActionEvent actionEvent) {
         // Switch back to the login scene
-        sceneEngine.switchScene("login");
-        Platform.exit();
+        Stage stage = (Stage) registerButton.getScene().getWindow();
+        stage.close();
     }
 
     @Override

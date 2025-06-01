@@ -1,2 +1,2 @@
 ALTER TABLE tasks
-    MODIFY status BIT(1);
+    ALTER COLUMN status BOOLEAN;

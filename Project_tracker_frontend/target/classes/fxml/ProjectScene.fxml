@@ -9,7 +9,7 @@
 
     <top>
         <GridPane hgap="10" vgap="10" alignment="TOP_CENTER">
-            <Label text="%projects.title" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+            <ToolBar>
             <Button fx:id="createProjectButton" text="➕" onAction="#handleCreateProject"
                     GridPane.columnIndex="2" GridPane.rowIndex="0">
                 <tooltip>
@@ -54,6 +54,7 @@
             </Button>
             <Label fx:id="systemResponseLabel" text="" GridPane.columnIndex="9" GridPane.rowIndex="9"
                    style="-fx-text-fill: red"/>
+            </ToolBar>
         </GridPane>
     </top>
 

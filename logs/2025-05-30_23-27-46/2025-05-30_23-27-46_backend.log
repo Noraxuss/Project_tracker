@@ -1,0 +1,26 @@
+2025-05-30 23:26:24 - INFO - p.config.LoggingAspect - Entering method: getModelMapper
+2025-05-30 23:26:24 - INFO - p.config.LoggingAspect - Exiting method: getModelMapper
+2025-05-30 23:26:25 - INFO - p.config.LoggingAspect - Entering method: onApplicationEvent
+2025-05-30 23:26:25 - INFO - p.listeners.CreateFlag - Created flag file:
+C:\Users\Ádám\IdeaProjects\Project_tracker\flags\backend_ready.flag
+2025-05-30 23:26:25 - INFO - p.config.LoggingAspect - Exiting method: onApplicationEvent
+2025-05-30 23:26:25 - INFO - p.config.LoggingAspect - Entering method: healthCheck
+2025-05-30 23:26:25 - INFO - p.config.LoggingAspect - Exiting method: healthCheck
+2025-05-30 23:26:55 - INFO - p.config.LoggingAspect - Entering method: registerUser
+2025-05-30 23:26:55 - INFO - p.config.LoggingAspect - Entering method: registerUser
+2025-05-30 23:26:55 - INFO - p.config.LoggingAspect - Entering method: generateKEK
+2025-05-30 23:26:55 - INFO - p.config.LoggingAspect - Entering method: getParallelism
+2025-05-30 23:26:55 - INFO - p.config.LoggingAspect - Exiting method: getParallelism
+2025-05-30 23:26:55 - INFO - p.config.LoggingAspect - Entering method: getMemoryUsageForEncryption
+2025-05-30 23:26:55 - INFO - p.config.LoggingAspect - Exiting method: getMemoryUsageForEncryption
+2025-05-30 23:26:55 - INFO - p.config.LoggingAspect - Entering method: getIterationAmount
+2025-05-30 23:26:55 - INFO - p.config.LoggingAspect - Exiting method: getIterationAmount
+2025-05-30 23:26:57 - INFO - p.config.LoggingAspect - Exiting method: generateKEK
+2025-05-30 23:26:57 - INFO - p.config.LoggingAspect - Entering method: mapUserCreationDtoToUser
+2025-05-30 23:26:57 - INFO - p.config.LoggingAspect - Exiting method: mapUserCreationDtoToUser
+2025-05-30 23:26:57 - INFO - p.config.LoggingAspect - Entering method: save
+2025-05-30 23:26:57 - INFO - p.config.LoggingAspect - Exiting method: save
+2025-05-30 23:26:57 - INFO - p.config.LoggingAspect - Entering method: mapUserToUserDetails
+2025-05-30 23:26:57 - INFO - p.config.LoggingAspect - Exiting method: mapUserToUserDetails
+2025-05-30 23:26:57 - INFO - p.config.LoggingAspect - Exiting method: registerUser
+2025-05-30 23:26:57 - INFO - p.config.LoggingAspect - Exiting method: registerUser
