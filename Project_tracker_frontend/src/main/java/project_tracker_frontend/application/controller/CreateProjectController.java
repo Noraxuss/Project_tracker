@@ -6,7 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import project_tracker_frontend.application.application_state.StatusState;
 import project_tracker_frontend.application.domain.CreateProjectModule;
 import project_tracker_frontend.application.scene.SceneEngine;
 import project_tracker_frontend.application.scene.SceneEngineAware;
@@ -14,37 +15,54 @@ import project_tracker_frontend.application.service.ProjectService;
 import project_tracker_frontend.application.service.ProjectServiceAware;
 import project_tracker_frontend.application.service.StatusService;
 import project_tracker_frontend.application.service.StatusServiceAware;
-import project_tracker_frontend.application.application_state.StatusState;
 
-public class CreateProjectController implements SceneEngineAware, ProjectServiceAware, StatusServiceAware {
+import java.util.ResourceBundle;
+
+public class CreateProjectController implements SceneEngineAware, ProjectServiceAware,
+        StatusServiceAware, ControllerFactoryAware {
 
     private SceneEngine sceneEngine;
     private ProjectService projectService;
     private StatusService statusService;
+    private ControllerFactory controllerFactory;
 
     @FXML
     public Label titleLabel;
 
     @FXML
-    public TextField projectNameField;
+    public HBox projectNameFieldController;
 
     @FXML
-    public Button createButton;
+    public HBox projectDescriptionFieldController;
 
     @FXML
     public ComboBox<String> projectStatusComboBox;
 
     @FXML
-    public TextField projectDescriptionField;
+    public Button createButton;
 
     @FXML
     public Label systemResponseLabel;
 
+    @FXML
+    private ResourceBundle resources;
+
     private ObservableList<String> statusList;
 
+    @FXML
+    public void initialize() {
+        controllerFactory.localizeIncludedComponent(projectNameFieldController,
+                "create_project.project_name", resources);
+        controllerFactory.localizeIncludedComponent(projectDescriptionFieldController,
+                "create_project.project_description", resources);
+    }
+
     public void handleProjectCreation(ActionEvent actionEvent) {
+        String projectName = controllerFactory.getInputStringData(projectNameFieldController);
+        String projectDescription = controllerFactory.getInputStringData(projectDescriptionFieldController);
+
         CreateProjectModule createProjectModule = new CreateProjectModule
-                (projectNameField.getText(), projectDescriptionField.getText());
+                (projectName, projectDescription);
 
         projectService.createProject(createProjectModule);
         //systemResponseLabel.setText(StatusState.getInstance().getStatusCode());
@@ -76,5 +94,10 @@ public class CreateProjectController implements SceneEngineAware, ProjectService
     @Override
     public void setStatusService(StatusService statusService) {
         this.statusService = statusService;
+    }
+
+    @Override
+    public void setControllerFactory(ControllerFactory controllerFactory) {
+        this.controllerFactory = controllerFactory;
     }
 }

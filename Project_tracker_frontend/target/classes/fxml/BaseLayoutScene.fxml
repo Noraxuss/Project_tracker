@@ -15,6 +15,7 @@
         <ToolBar>
             <MenuButton text="File">
                 <MenuItem text="New Project" onAction="#handleNewProject"/>
+                <MenuItem text="New Status" onAction="#handleNewStatus"/>
                 <MenuItem text="Open" onAction="#handleOpen"/>
                 <MenuItem text="Exit" onAction="#handleExit"/>
             </MenuButton>

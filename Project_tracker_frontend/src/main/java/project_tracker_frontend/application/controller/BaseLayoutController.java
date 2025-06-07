@@ -2,15 +2,10 @@ package project_tracker_frontend.application.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Side;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import lombok.Getter;
-import org.controlsfx.control.HiddenSidesPane;
 import project_tracker_frontend.application.scene.SceneEngine;
 import project_tracker_frontend.application.scene.SceneEngineAware;
 
@@ -42,11 +37,14 @@ public class BaseLayoutController implements SceneEngineAware {
     }
 
     public void handleNewProject(ActionEvent actionEvent) {
+        sceneEngine.switchScene("create_project");
+    }
 
+    public void handleNewStatus(ActionEvent actionEvent) {
+        sceneEngine.switchScene("create_status");
     }
 
     public void handleOpen(ActionEvent actionEvent) {
-
     }
 
     public void handleExit(ActionEvent actionEvent) {
@@ -66,5 +64,4 @@ public class BaseLayoutController implements SceneEngineAware {
     public void setSceneEngine(SceneEngine engine) {
         this.sceneEngine = engine;
     }
-
 }

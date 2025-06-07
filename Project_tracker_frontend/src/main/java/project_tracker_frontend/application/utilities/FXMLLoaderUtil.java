@@ -2,6 +2,7 @@ package project_tracker_frontend.application.utilities;
 
     import javafx.fxml.FXMLLoader;
     import project_tracker_frontend.application.controller.ControllerFactory;
+    import project_tracker_frontend.application.controller.controller_utilities.ResourceBundleName;
     import project_tracker_frontend.application.scene.SceneEngine;
     import project_tracker_frontend.application.service.ServiceFactory;
 
@@ -23,12 +24,20 @@ package project_tracker_frontend.application.utilities;
             );
         }
 
-        public static FXMLLoader loadFXML(String fxmlPath) throws IOException {
+        public static FXMLLoader loadFXML(String fxmlPath, String name) throws IOException {
             FXMLLoader loader = new FXMLLoader(FXMLLoaderUtil.class.getResource(fxmlPath));
-            loader.setResources(ResourceBundle.getBundle("languages/messages_hu"));
+            ResourceBundle resourceBundle = ResourceBundle.getBundle("languages/messages_hu");
+            loader.setResources(resourceBundle);
 
             // Use the controller factory
-            loader.setControllerFactory(controllerFactory::createController);
+//            loader.setControllerFactory(controllerFactory::createController);
+            loader.setControllerFactory(param -> {
+                Object controller = controllerFactory.createController(param);
+                if (controller instanceof ResourceBundleName localizableController) {
+                    localizableController.setResourceBundleName(name);
+                }
+                return controller;
+            });
 
             return loader;
         }

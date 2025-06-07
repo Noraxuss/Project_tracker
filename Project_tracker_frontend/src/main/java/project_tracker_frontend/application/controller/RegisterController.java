@@ -1,57 +1,85 @@
 package project_tracker_frontend.application.controller;
 
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import project_tracker_frontend.application.domain.UserModule;
 import project_tracker_frontend.application.scene.SceneEngine;
 import project_tracker_frontend.application.scene.SceneEngineAware;
 import project_tracker_frontend.application.service.UserService;
 import project_tracker_frontend.application.service.UserServiceAware;
-import project_tracker_frontend.application.application_state.StatusState;
+
+import java.util.ResourceBundle;
 
 
-public class RegisterController implements SceneEngineAware, UserServiceAware {
+public class RegisterController implements SceneEngineAware, UserServiceAware,
+ControllerFactoryAware {
 
     private UserService userService;
     private SceneEngine sceneEngine;
+    private ControllerFactory controllerFactory;
 
     @FXML
-    public Label SystemResponseLabel;
+    public Label titleLabel;
 
     @FXML
-    public javafx.scene.control.Label titleLabel;
+    public HBox usernameFieldController;
 
     @FXML
-    public javafx.scene.control.TextField usernameField;
+    public HBox passwordFieldController;
 
     @FXML
-    public PasswordField passwordField;
+    public HBox confirmPasswordFieldController;
+
+    @FXML
+    public HBox emailFieldController;
 
     @FXML
     public Button registerButton;
 
     @FXML
+    public Label systemResponseLabel;
+
+    @FXML
     public javafx.scene.control.Button backButton;
 
     @FXML
-    public TextField emailField;
+    private ResourceBundle resources;
 
     @FXML
     public void initialize() {
-        titleLabel.setText("Register");
+        controllerFactory.localizeIncludedComponent(usernameFieldController,
+                "register.username", resources);
+        controllerFactory.localizeIncludedComponent(passwordFieldController,
+                "register.password", resources);
+        controllerFactory.localizeIncludedComponent(confirmPasswordFieldController,
+                "register.confirm_password", resources);
+        controllerFactory.localizeIncludedComponent(emailFieldController,
+                "register.e-mail", resources);
     }
 
     @FXML
     public void handleRegister(ActionEvent actionEvent) {
+        String username = controllerFactory.getInputStringData(usernameFieldController);
+        String password = controllerFactory.getInputStringData(passwordFieldController);
+        String confirmPassword = controllerFactory.getInputStringData(confirmPasswordFieldController);
+        String email = controllerFactory.getInputStringData(emailFieldController);
+        // Validate the input
+        if (username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || email.isEmpty()) {
+            systemResponseLabel.setText("All fields are required.");
+            return;
+        }
+
+        if (!password.equals(confirmPassword)) {
+            systemResponseLabel.setText("Passwords do not match.");
+            return;
+        }
+
         userService.registerUser
-                (new UserModule(usernameField.getText(),
-                        passwordField.getText(), emailField.getText()));
+                (new UserModule(username, password, email));
 
 //        SystemResponseLabel.setText(StatusState.getInstance().getStatusCode());
 
@@ -74,5 +102,10 @@ public class RegisterController implements SceneEngineAware, UserServiceAware {
     @Override
     public void setUserService(UserService userService) {
         this.userService = userService;
+    }
+
+    @Override
+    public void setControllerFactory(ControllerFactory controllerFactory) {
+        this.controllerFactory = controllerFactory;
     }
 }

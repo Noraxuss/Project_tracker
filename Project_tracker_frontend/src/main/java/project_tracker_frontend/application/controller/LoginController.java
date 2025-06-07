@@ -1,27 +1,32 @@
 package project_tracker_frontend.application.controller;
 
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import project_tracker_frontend.application.application_state.UserState;
+import project_tracker_frontend.application.controller.controller_utilities.ResourceBundleName;
 import project_tracker_frontend.application.domain.LoginModule;
-import project_tracker_frontend.application.scene.ExtraScene;
 import project_tracker_frontend.application.scene.SceneEngine;
 import project_tracker_frontend.application.scene.SceneEngineAware;
 import project_tracker_frontend.application.service.UserService;
 import project_tracker_frontend.application.service.UserServiceAware;
-import project_tracker_frontend.application.application_state.StatusState;
-import project_tracker_frontend.application.application_state.UserState;
 
-public class LoginController implements SceneEngineAware, UserServiceAware {
+import java.util.ResourceBundle;
+
+public class LoginController implements SceneEngineAware, UserServiceAware,
+        ControllerFactoryAware, ResourceBundleName {
 
     private SceneEngine sceneEngine;
-
     private UserService userService;
+    private ControllerFactory controllerFactory;
+    private String resourceBundleName;
+
+    private final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     @FXML
     public Label systemResponseLabel;
@@ -30,26 +35,43 @@ public class LoginController implements SceneEngineAware, UserServiceAware {
     public Label titleLabel;
 
     @FXML
-    public TextField usernameField;
+    public HBox usernameFieldController;
 
     @FXML
-    public PasswordField passwordField;
+    public HBox passwordFieldController;
 
     @FXML
     public Button loginButton;
 
     @FXML
+    public Button guestUser;
+
+    @FXML
     public Button registerButton;
 
     @FXML
+    public ResourceBundle resources;
+
+    @FXML
     public void initialize() {
-        titleLabel.setText("Login");
+        controllerFactory.localizeIncludedComponent(usernameFieldController,
+                "login.username", resources);
+        controllerFactory.localizeIncludedComponent(passwordFieldController,
+                "login.password", resources);
+    }
+
+
+    @FXML
+    public void handleGuest(ActionEvent actionEvent) {
+
     }
 
     @FXML
     public void handleLogin(ActionEvent actionEvent) {
-        LoginModule loginModule = new LoginModule
-                (usernameField.getText(), passwordField.getText());
+        // Create a LoginModule with the input from the username and password fields
+        String username = controllerFactory.getInputStringData(usernameFieldController);
+        String password = controllerFactory.getInputStringData(passwordFieldController);
+        LoginModule loginModule = new LoginModule(username, password);
 
         userService.loginUser(loginModule);
 
@@ -82,6 +104,16 @@ public class LoginController implements SceneEngineAware, UserServiceAware {
     @Override
     public void setUserService(UserService userService) {
         this.userService = userService;
+    }
+
+    @Override
+    public void setControllerFactory(ControllerFactory controllerFactory) {
+        this.controllerFactory = controllerFactory;
+    }
+
+    @Override
+    public void setResourceBundleName(String resourceBundleName) {
+        this.resourceBundleName = resourceBundleName;
     }
 }
 

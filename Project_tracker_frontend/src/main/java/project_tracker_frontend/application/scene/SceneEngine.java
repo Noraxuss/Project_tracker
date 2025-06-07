@@ -26,6 +26,7 @@ public class SceneEngine implements BaseLayoutControllerAware {
     public static final String SCENE_PAIRS_PROPERTIES = "/scene_data/scene_pairs.properties";
     private final Stage stage;
     private final Properties scenePairings;
+    @Getter
     private final OneKeyTwoValueMap<String, String, String> sceneMap;
     @Getter
     private final OneKeyTwoValueMap<String, Parent, String> sceneCache;
@@ -216,6 +217,7 @@ public class SceneEngine implements BaseLayoutControllerAware {
             sceneCache.put(sceneName, scene, sceneMap.get(sceneName).getValue1());
 
             Object controller = loader.getController();
+
             saveController(sceneName, scene, controller);
         }
         return scene;
@@ -245,7 +247,7 @@ public class SceneEngine implements BaseLayoutControllerAware {
         if (fxmlFile == null) {
             throw new IllegalArgumentException("Scene not found: " + name);
         }
-        return FXMLLoaderUtil.loadFXML(fxmlFile);
+        return FXMLLoaderUtil.loadFXML(fxmlFile, name);
     }
 
     @Override

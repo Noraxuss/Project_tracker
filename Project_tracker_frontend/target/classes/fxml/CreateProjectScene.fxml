@@ -1,39 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
-<?import javafx.geometry.Insets?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="project_tracker_frontend.application.controller.CreateProjectController"
             prefHeight="200.0" prefWidth="300.0">
 
+    <padding>
+        <Insets top="20" right="30" bottom="20" left="30" />
+    </padding>
+
+    <top>
+        <GridPane hgap="1" vgap="1" alignment="CENTER">
+            <Label fx:id="titleLabel" text="%create_project.title" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        </GridPane>
+    </top>
+
     <center>
         <GridPane hgap="10" vgap="10" alignment="CENTER">
-            <padding>
-                <Insets top="20" right="30" bottom="20" left="30" />
-            </padding>
-            <Label fx:id="titleLabel" text="%create_project.title" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-            <Label text="%create_project.project_name" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-            <TextField fx:id="projectNameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <fx:include source="components/ShortTextRequestSceneComponent.fxml"
+                        GridPane.rowIndex="1" GridPane.columnIndex="0" fx:id="projectNameFieldController"/>
 
-            <Label text="%create_project.select_status" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-
-            <Label text="%create_project.project_description" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-            <TextField fx:id="projectDescriptionField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-
+            <Label text="%create_project.select_status_label" GridPane.columnIndex="0" GridPane.rowIndex="2" />
             <ComboBox fx:id="projectStatusComboBox" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
 
-            <Button fx:id="createButton" text="%project_create.button" onAction="#handleProjectCreation" GridPane.rowIndex="0" GridPane.columnIndex="3" />
+            <fx:include source="components/ShortTextRequestSceneComponent.fxml"
+                        GridPane.rowIndex="3" GridPane.columnIndex="0" fx:id="projectDescriptionFieldController"/>
 
             <Label fx:id="systemResponseLabel" GridPane.columnIndex="1" GridPane.rowIndex="4" style="-fx-text-fill: red"/>
 
         </GridPane>
     </center>
+
+    <bottom>
+        <Button fx:id="createButton" text="%project_create.button" onAction="#handleProjectCreation" />
+    </bottom>
 
 </BorderPane>
