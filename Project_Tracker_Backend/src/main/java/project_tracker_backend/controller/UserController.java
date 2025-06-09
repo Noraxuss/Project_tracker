@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import project_tracker_backend.dto.incoming.UserCreationDto;
+import project_tracker_backend.dto.incoming.UserCreationCommand;
 import project_tracker_backend.dto.incoming.UserLoginCommand;
 import project_tracker_backend.dto.outgoing.UserDetails;
 import project_tracker_backend.dto.outgoing.UserProjectListDto;
@@ -23,8 +23,8 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<UserDetails> registerUser(@RequestBody UserCreationDto userCreationDto) {
-        UserDetails userDetails = userService.registerUser(userCreationDto);
+    public ResponseEntity<UserDetails> registerUser(@RequestBody UserCreationCommand userCreationCommand) {
+        UserDetails userDetails = userService.registerUser(userCreationCommand);
         return new ResponseEntity<>(userDetails, HttpStatus.CREATED);
     }
 

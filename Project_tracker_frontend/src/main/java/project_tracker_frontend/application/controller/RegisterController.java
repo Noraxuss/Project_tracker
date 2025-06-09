@@ -6,6 +6,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import project_tracker_frontend.application.controller.controller_utilities.ControllerFactory;
+import project_tracker_frontend.application.controller.controller_utilities.ControllerFactoryAware;
+import project_tracker_frontend.application.controller.controller_utilities.ControllerUtil;
+import project_tracker_frontend.application.controller.controller_utilities.ControllerUtilityAware;
 import project_tracker_frontend.application.domain.UserModule;
 import project_tracker_frontend.application.scene.SceneEngine;
 import project_tracker_frontend.application.scene.SceneEngineAware;
@@ -15,12 +19,12 @@ import project_tracker_frontend.application.service.UserServiceAware;
 import java.util.ResourceBundle;
 
 
-public class RegisterController implements SceneEngineAware, UserServiceAware,
-ControllerFactoryAware {
+public abstract class RegisterController implements SceneEngineAware, UserServiceAware,
+        ControllerUtilityAware {
 
     private UserService userService;
     private SceneEngine sceneEngine;
-    private ControllerFactory controllerFactory;
+    private ControllerUtil controllerUtility;
 
     @FXML
     public Label titleLabel;
@@ -51,22 +55,22 @@ ControllerFactoryAware {
 
     @FXML
     public void initialize() {
-        controllerFactory.localizeIncludedComponent(usernameFieldController,
+        controllerUtility.localizeIncludedComponent(usernameFieldController,
                 "register.username", resources);
-        controllerFactory.localizeIncludedComponent(passwordFieldController,
+        controllerUtility.localizeIncludedComponent(passwordFieldController,
                 "register.password", resources);
-        controllerFactory.localizeIncludedComponent(confirmPasswordFieldController,
+        controllerUtility.localizeIncludedComponent(confirmPasswordFieldController,
                 "register.confirm_password", resources);
-        controllerFactory.localizeIncludedComponent(emailFieldController,
+        controllerUtility.localizeIncludedComponent(emailFieldController,
                 "register.e-mail", resources);
     }
 
     @FXML
     public void handleRegister(ActionEvent actionEvent) {
-        String username = controllerFactory.getInputStringData(usernameFieldController);
-        String password = controllerFactory.getInputStringData(passwordFieldController);
-        String confirmPassword = controllerFactory.getInputStringData(confirmPasswordFieldController);
-        String email = controllerFactory.getInputStringData(emailFieldController);
+        String username = controllerUtility.getInputStringData(usernameFieldController);
+        String password = controllerUtility.getInputStringData(passwordFieldController);
+        String confirmPassword = controllerUtility.getInputStringData(confirmPasswordFieldController);
+        String email = controllerUtility.getInputStringData(emailFieldController);
         // Validate the input
         if (username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || email.isEmpty()) {
             systemResponseLabel.setText("All fields are required.");
@@ -105,7 +109,8 @@ ControllerFactoryAware {
     }
 
     @Override
-    public void setControllerFactory(ControllerFactory controllerFactory) {
-        this.controllerFactory = controllerFactory;
+    public void setControllerUtility(ControllerUtil controllerUtility) {
+        this.controllerUtility = controllerUtility;
     }
+
 }

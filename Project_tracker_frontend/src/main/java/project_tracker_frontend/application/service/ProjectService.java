@@ -31,8 +31,10 @@ public class ProjectService {
 
     public void createProject(CreateProjectModule createProjectModule) {
         ProjectDetails projectDetails = new ProjectDetails(
-                createProjectModule.projectName(),
-                createProjectModule.description()
+                createProjectModule.name(),
+                createProjectModule.description(),
+                UserState.getInstance().getUserId(),
+                createProjectModule.statusId()
         );
         ProjectConnector.createProject(projectDetails);
     }
@@ -60,6 +62,10 @@ public class ProjectService {
                 projectWithTasksCommand.projectDescription(),
                 taskModules
                 );
+    }
+
+    public void deleteProject(Long id) {
+        ProjectConnector.deleteSelectedProject(id);
     }
 }
 

@@ -64,4 +64,16 @@ public class BaseLayoutController implements SceneEngineAware {
     public void setSceneEngine(SceneEngine engine) {
         this.sceneEngine = engine;
     }
+
+    public void handleCreateStatus(ActionEvent actionEvent) {
+
+    }
+
+    public void handleEditStatus(ActionEvent actionEvent) {
+
+    }
+
+    public void handleDeleteStatus(ActionEvent actionEvent) {
+
+    }
 }

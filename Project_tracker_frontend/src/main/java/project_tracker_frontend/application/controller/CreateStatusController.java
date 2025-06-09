@@ -6,9 +6,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import project_tracker_frontend.application.application_state.StatusState;
+import project_tracker_frontend.application.controller.controller_utilities.ControllerUtil;
+import project_tracker_frontend.application.controller.controller_utilities.ControllerUtilityAware;
 import project_tracker_frontend.application.domain.CreateStatusModule;
 import project_tracker_frontend.application.scene.SceneEngine;
 import project_tracker_frontend.application.scene.SceneEngineAware;
@@ -17,10 +18,10 @@ import project_tracker_frontend.application.service.StatusServiceAware;
 
 import java.util.ResourceBundle;
 
-public class CreateStatusController implements SceneEngineAware, ControllerFactoryAware,
+public class CreateStatusController implements SceneEngineAware, ControllerUtilityAware,
         StatusServiceAware {
 
-    private ControllerFactory controllerFactory;
+    private ControllerUtil controllerUtil;
     private SceneEngine sceneEngine;
     private StatusService statusService;
 
@@ -45,12 +46,12 @@ public class CreateStatusController implements SceneEngineAware, ControllerFacto
     public ResourceBundle resources;
 
     public void initialize() {
-        controllerFactory.localizeIncludedComponent(statusNameFieldController,
+        controllerUtil.localizeIncludedComponent(statusNameFieldController,
                 "status_name", resources);
     }
 
     public void handleStatusCreation(ActionEvent actionEvent) {
-        String statusName = controllerFactory.getInputStringData(statusNameFieldController);
+        String statusName = controllerUtil.getInputStringData(statusNameFieldController);
         String statusPurpose = statusPurposeComboBox.getValue();
 
         CreateStatusModule statusModule = new CreateStatusModule(statusName, statusPurpose);
@@ -62,11 +63,12 @@ public class CreateStatusController implements SceneEngineAware, ControllerFacto
         statusPurposeList = statusPurposeComboBox.getItems();
         statusPurposeList.clear();
         StatusState.getInstance();
+        statusPurposeList.addAll(StatusState.getStatusPurposeList());
     }
 
     @Override
-    public void setControllerFactory(ControllerFactory controllerFactory) {
-        this.controllerFactory = controllerFactory;
+    public void setControllerUtility(ControllerUtil controllerUtil) {
+        this.controllerUtil = controllerUtil;
     }
 
     @Override

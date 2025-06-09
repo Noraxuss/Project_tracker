@@ -1,6 +1,6 @@
 package project_tracker_frontend.application.domain;
 
-public record CreateTaskModule(String name, String description) {
+public record CreateTaskModule(String name, String description, Long taskStatusId) {
     public CreateTaskModule {
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Name cannot be null or blank");

@@ -16,44 +16,12 @@
                     <Tooltip text="%projects.create" />
                 </tooltip>
             </Button>
-            <Button fx:id="viewProjectButton" text="👁" onAction="#handleViewProject"
-                    GridPane.columnIndex="3" GridPane.rowIndex="0">
-                <tooltip>
-                    <Tooltip text="%projects.view" />
-                </tooltip>
-            </Button>
-            <Button fx:id="editProjectButton" text="✏" onAction="#handleEditProject"
-                    GridPane.columnIndex="4" GridPane.rowIndex="0">
-                <tooltip>
-                    <Tooltip text="%projects.edit" />
-                </tooltip>
-            </Button>
-            <Button fx:id="pauseProjectButton" text="⏸" onAction="#handlePauseProject"
-                    GridPane.columnIndex="5" GridPane.rowIndex="0">
-                <tooltip>
-                    <Tooltip text="%projects.pause" />
-                </tooltip>
-            </Button>
-            <Button fx:id="resumeProjectButton" text="▶" onAction="#handleResumeProject"
-                    GridPane.columnIndex="6" GridPane.rowIndex="0">
-                <tooltip>
-                    <Tooltip text="%projects.resume" />
-                </tooltip>
-            </Button>
-            <Button fx:id="completeProjectButton" text="✔" onAction="#handleCompleteProject"
-                    GridPane.columnIndex="7" GridPane.rowIndex="0">
-                <tooltip>
-                    <Tooltip text="%projects.complete" />
-                </tooltip>
-            </Button>
             <Button fx:id="deleteProjectButton" text="🗑" onAction="#handleDeleteProject"
-                    GridPane.columnIndex="8" GridPane.rowIndex="0">
+                    GridPane.columnIndex="3" GridPane.rowIndex="0">
                 <tooltip>
                     <Tooltip text="%projects.delete" />
                 </tooltip>
             </Button>
-            <Label fx:id="systemResponseLabel" text="" GridPane.columnIndex="9" GridPane.rowIndex="9"
-                   style="-fx-text-fill: red"/>
             </ToolBar>
         </GridPane>
     </top>
@@ -67,8 +35,10 @@
 
     <bottom>
         <GridPane hgap="10" vgap="10" alignment="BOTTOM_CENTER">
+            <Label fx:id="systemResponseLabel" text="" GridPane.columnIndex="0" GridPane.rowIndex="1"
+                   style="-fx-text-fill: red"/>
             <Button fx:id="backButton" text="%projects.back" onAction="#handleBack"
-                    GridPane.columnIndex="0" GridPane.rowIndex="8"/>
+                    GridPane.columnIndex="0" GridPane.rowIndex="2"/>
         </GridPane>
     </bottom>
 </BorderPane>

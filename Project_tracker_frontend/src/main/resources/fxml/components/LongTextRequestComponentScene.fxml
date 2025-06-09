@@ -1,0 +1,13 @@
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="project_tracker_frontend.application.controller.controller_components.LongTextRequestSceneComponentController"
+      spacing="5">
+
+    <Label fx:id="labelName"/>
+    <TextArea fx:id="inputText"
+              prefWidth="200" prefHeight="150"
+              wrapText="true"/>
+</VBox>

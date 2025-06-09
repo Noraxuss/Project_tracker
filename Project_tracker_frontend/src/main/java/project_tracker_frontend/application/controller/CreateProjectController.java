@@ -7,7 +7,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import project_tracker_frontend.application.application_state.AppState;
 import project_tracker_frontend.application.application_state.StatusState;
+import project_tracker_frontend.application.controller.controller_utilities.ControllerUtil;
+import project_tracker_frontend.application.controller.controller_utilities.ControllerUtilityAware;
 import project_tracker_frontend.application.domain.CreateProjectModule;
 import project_tracker_frontend.application.scene.SceneEngine;
 import project_tracker_frontend.application.scene.SceneEngineAware;
@@ -19,12 +26,14 @@ import project_tracker_frontend.application.service.StatusServiceAware;
 import java.util.ResourceBundle;
 
 public class CreateProjectController implements SceneEngineAware, ProjectServiceAware,
-        StatusServiceAware, ControllerFactoryAware {
+        StatusServiceAware, ControllerUtilityAware {
 
     private SceneEngine sceneEngine;
     private ProjectService projectService;
     private StatusService statusService;
-    private ControllerFactory controllerFactory;
+    private ControllerUtil controllerUtil;
+
+    private final Logger logger = LoggerFactory.getLogger(CreateProjectController.class);
 
     @FXML
     public Label titleLabel;
@@ -33,7 +42,7 @@ public class CreateProjectController implements SceneEngineAware, ProjectService
     public HBox projectNameFieldController;
 
     @FXML
-    public HBox projectDescriptionFieldController;
+    public VBox projectDescriptionFieldController;
 
     @FXML
     public ComboBox<String> projectStatusComboBox;
@@ -51,34 +60,57 @@ public class CreateProjectController implements SceneEngineAware, ProjectService
 
     @FXML
     public void initialize() {
-        controllerFactory.localizeIncludedComponent(projectNameFieldController,
+        controllerUtil.localizeIncludedComponent(projectNameFieldController,
                 "create_project.project_name", resources);
-        controllerFactory.localizeIncludedComponent(projectDescriptionFieldController,
+        controllerUtil.localizeIncludedComponent(projectDescriptionFieldController,
                 "create_project.project_description", resources);
     }
 
     public void handleProjectCreation(ActionEvent actionEvent) {
-        String projectName = controllerFactory.getInputStringData(projectNameFieldController);
-        String projectDescription = controllerFactory.getInputStringData(projectDescriptionFieldController);
+        String projectName = controllerUtil.getInputStringData(projectNameFieldController);
+        String projectDescription = controllerUtil.getInputStringData(projectDescriptionFieldController);
+        Long userId = AppState.getInstance().getUserState().getUserId();
+        Long selectedStatusId;
+        if (projectStatusComboBox.getSelectionModel().getSelectedIndex() == -1) {
+            selectedStatusId = 1L;
+            logger.debug("No status selected, defaulting to first project status: {}", selectedStatusId);
+        } else {
+            selectedStatusId = AppState.getInstance().getStatusState()
+                    .getStatusIdByName(projectStatusComboBox.getSelectionModel().getSelectedItem());
+            logger.debug("Selected project status: {}", selectedStatusId);
+        }
 
         CreateProjectModule createProjectModule = new CreateProjectModule
-                (projectName, projectDescription);
+                (projectName, projectDescription, userId, selectedStatusId);
 
         projectService.createProject(createProjectModule);
         //systemResponseLabel.setText(StatusState.getInstance().getStatusCode());
 
         sceneEngine.switchScene("projects");
+        logger.debug("Project created with name: {}, description: {}, userId: {}, statusId: {}",
+                projectName, projectDescription, userId, selectedStatusId);
+
+        Stage stage = (Stage) createButton.getScene().getWindow();
+        stage.close();
     }
 
+    @FXML
     public void onSceneLoad() {
         statusList = projectStatusComboBox.getItems();
         statusList.clear();
+
+        logger.debug("Loading status list for project creation...");
 
         StatusState.getInstance();
         StatusState.getProjectStatusList()
                 .forEach(statusModel -> statusList.add(statusModel.getName()));
         StatusState.getSharedStatusList()
                 .forEach(statusModel -> statusList.add(statusModel.getName()));
+
+        logger.debug("StatusListSize: {} ", statusList.size());
+        logger.debug("StatusList: {} ", statusList);
+
+        projectStatusComboBox.setItems(statusList);
     }
 
     @Override
@@ -97,7 +129,7 @@ public class CreateProjectController implements SceneEngineAware, ProjectService
     }
 
     @Override
-    public void setControllerFactory(ControllerFactory controllerFactory) {
-        this.controllerFactory = controllerFactory;
+    public void setControllerUtility(ControllerUtil controllerFactory) {
+        this.controllerUtil = controllerFactory;
     }
 }

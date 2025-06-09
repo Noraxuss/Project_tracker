@@ -1,9 +1,8 @@
 package project_tracker_backend.dto.mapper;
 
 import org.springframework.stereotype.Component;
-import project_tracker_backend.domain.Project;
 import project_tracker_backend.domain.User;
-import project_tracker_backend.dto.incoming.UserCreationDto;
+import project_tracker_backend.dto.incoming.UserCreationCommand;
 import project_tracker_backend.dto.outgoing.UserDetails;
 import project_tracker_backend.dto.outgoing.UserProjectListDto;
 
@@ -16,11 +15,11 @@ public class UserMapper {
         this.projectMapper = projectMapper;
     }
 
-    public User mapUserCreationDtoToUser(UserCreationDto userCreationDto) {
+    public User mapUserCreationDtoToUser(UserCreationCommand userCreationCommand) {
         User user = new User();
-        user.setUsername(userCreationDto.getUsername());
-        user.setPassword(userCreationDto.getPassword());
-        user.setEmail(userCreationDto.getEmail());
+        user.setUsername(userCreationCommand.getUsername());
+        user.setPassword(userCreationCommand.getPassword());
+        user.setEmail(userCreationCommand.getEmail());
         return user;
     }
 

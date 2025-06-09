@@ -6,6 +6,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import project_tracker_frontend.application.config.ScreenBounds;
 
 @Getter
@@ -13,12 +15,14 @@ import project_tracker_frontend.application.config.ScreenBounds;
 public class ExtraScene extends BaseScene{
 
     private Stage extraStage;
+    private final Logger logger = LoggerFactory.getLogger(ExtraScene.class);
 
     public ExtraScene() {
         this.extraStage = new Stage();
     }
 
     public void initializeExtraStage(Parent scene, Stage parentStage) {
+        logger.info("Initializing extra stage");
         this.extraStage.setTitle(getName());
         this.extraStage.setScene(new Scene(scene));
         this.extraStage.setResizable(true);

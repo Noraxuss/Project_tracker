@@ -20,7 +20,7 @@
 
             <ComboBox fx:id="statusPurposeComboBox" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
 
-            <Button fx:id="createButton" text="%create_status.button" onAction="#handleProjectCreation"
+            <Button fx:id="createButton" text="%create_status.button" onAction="#handleStatusCreation"
                     GridPane.rowIndex="0" GridPane.columnIndex="3"/>
 
             <Label fx:id="systemResponseLabel" GridPane.columnIndex="1" GridPane.rowIndex="4"

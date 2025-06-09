@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import project_tracker_backend.domain.Project;
 import project_tracker_backend.domain.Status;
 import project_tracker_backend.domain.Task;
-import project_tracker_backend.dto.incoming.TaskCreationDto;
+import project_tracker_backend.dto.incoming.TaskCreationCommand;
 import project_tracker_backend.dto.mapper.TaskMapper;
 import project_tracker_backend.dto.outgoing.SubtaskDetails;
 import project_tracker_backend.dto.outgoing.TaskDetails;
@@ -32,19 +32,19 @@ public class TaskService {
         this.statusService = statusService;
     }
 
-    public void createTask(TaskCreationDto taskCreationDto) {
-        Task task = taskMapper.mapTaskCreationDtoToTask(taskCreationDto);
+    public void createTask(TaskCreationCommand taskCreationCommand) {
+        Task task = taskMapper.mapTaskCreationDtoToTask(taskCreationCommand);
         Project project = null;
-        if (taskCreationDto.getProjectId() < 0L) {
-            project = projectService.findProjectById(taskCreationDto.getProjectId());
+        if (taskCreationCommand.getProjectId() < 0L) {
+            project = projectService.findProjectById(taskCreationCommand.getProjectId());
         }
         Task parentTask = null;
-        if (taskCreationDto.getTaskId() < 0L) {
-            parentTask = findTaskById(taskCreationDto.getTaskId());
+        if (taskCreationCommand.getTaskId() < 0L) {
+            parentTask = findTaskById(taskCreationCommand.getTaskId());
         }
         Status status = null;
-        if (taskCreationDto.getStatusId() < 0L) {
-            status = statusService.findStatusById(taskCreationDto.getStatusId());
+        if (taskCreationCommand.getStatusId() < 0L) {
+            status = statusService.findStatusById(taskCreationCommand.getStatusId());
         }
         task.setProject(project);
         task.setParentTask(parentTask);

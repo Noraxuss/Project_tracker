@@ -34,9 +34,10 @@ public class ProjectConnector {
             // Dynamically create JSON payload
             ObjectMapper objectMapper = new ObjectMapper();
             ObjectNode jsonPayload = objectMapper.createObjectNode();
-            jsonPayload.put("name", projectDetails.projectName());
-            jsonPayload.put("description", projectDetails.projectDescription());
+            jsonPayload.put("name", projectDetails.name());
+            jsonPayload.put("description", projectDetails.description());
             jsonPayload.put("userId", UserState.getInstance().getUserId());
+            jsonPayload.put("statusId", projectDetails.statusId());
 
             // Convert JSON object to string
             String jsonInputString = objectMapper.writeValueAsString(jsonPayload);
@@ -99,6 +100,19 @@ public class ProjectConnector {
         return response;
     }
 
+    public static void deleteSelectedProject(Long id) {
+        try {
+            HttpURLConnection conn = ConnectorUtilities.getHttpURLConnection(
+                    ConnectorUtilities.BASE_URL + PROJECTS + "/delete/" + id, "DELETE");
+            // Send the DELETE request
+            ConnectorUtilities.getResponse(conn);
+            // Check the response status code
+            int statusCode = conn.getResponseCode();
+        } catch (URISyntaxException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 //    public static void createProject(ProjectDetails projectDetails) {
 //        String response;
 //        try {
@@ -109,7 +123,7 @@ public class ProjectConnector {
 //            // Dynamically create JSON payload
 //            ObjectMapper objectMapper = new ObjectMapper();
 //            ObjectNode jsonPayload = objectMapper.createObjectNode();
-//            jsonPayload.put("name", projectDetails.projectName());
+//            jsonPayload.put("name", projectDetails.name());
 //            jsonPayload.put("description", projectDetails.projectDescription());
 //            jsonPayload.put("userId", UserSession.getInstance().getUserId());
 //

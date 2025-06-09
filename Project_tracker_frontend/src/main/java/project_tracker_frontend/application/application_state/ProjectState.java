@@ -6,11 +6,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ProjectState {
+
     private static ProjectState instance;
     private Long currentProjectId;
 
     private ProjectState() {
-
+        // Private constructor to prevent instantiation
     }
 
     public static ProjectState getInstance() {

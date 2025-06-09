@@ -2,7 +2,7 @@ package project_tracker_backend.dto.mapper;
 
 import org.springframework.stereotype.Component;
 import project_tracker_backend.domain.Project;
-import project_tracker_backend.dto.incoming.ProjectCreationDto;
+import project_tracker_backend.dto.incoming.ProjectCreationCommand;
 import project_tracker_backend.dto.outgoing.ProjectDetails;
 import project_tracker_backend.dto.outgoing.ProjectDetailsWithTasks;
 import project_tracker_backend.dto.outgoing.ProjectTaskListDto;
@@ -18,10 +18,10 @@ public class ProjectMapper {
         this.taskMapper = taskMapper;
     }
 
-    public Project mapProjectCreationDtoToProject(ProjectCreationDto projectCreationDto) {
+    public Project mapProjectCreationDtoToProject(ProjectCreationCommand projectCreationCommand) {
         Project project = new Project();
-        project.setName(projectCreationDto.getName());
-        project.setDescription(projectCreationDto.getDescription());
+        project.setName(projectCreationCommand.getName());
+        project.setDescription(projectCreationCommand.getDescription());
 
         return project;
     }

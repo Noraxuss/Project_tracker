@@ -5,7 +5,7 @@ import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.stereotype.Service;
 import project_tracker_backend.config.security.KeyEncryptionKey;
 import project_tracker_backend.domain.User;
-import project_tracker_backend.dto.incoming.UserCreationDto;
+import project_tracker_backend.dto.incoming.UserCreationCommand;
 import project_tracker_backend.dto.incoming.UserLoginCommand;
 import project_tracker_backend.dto.mapper.UserMapper;
 import project_tracker_backend.dto.outgoing.ProjectDetails;
@@ -32,9 +32,9 @@ public class UserService {
         this.keyEncryptionKey = keyEncryptionKey;
     }
 
-    public UserDetails registerUser(UserCreationDto userCreationDto) {
-        userCreationDto.setPassword(keyEncryptionKey.generateKEK(userCreationDto.getPassword()));
-        User user = userMapper.mapUserCreationDtoToUser(userCreationDto);
+    public UserDetails registerUser(UserCreationCommand userCreationCommand) {
+        userCreationCommand.setPassword(keyEncryptionKey.generateKEK(userCreationCommand.getPassword()));
+        User user = userMapper.mapUserCreationDtoToUser(userCreationCommand);
         userRepository.save(user);
         return userMapper.mapUserToUserDetails(user);
     }

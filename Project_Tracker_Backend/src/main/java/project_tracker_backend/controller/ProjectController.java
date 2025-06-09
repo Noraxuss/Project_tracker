@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import project_tracker_backend.dto.incoming.ProjectCreationDto;
+import project_tracker_backend.dto.incoming.ProjectCreationCommand;
 import project_tracker_backend.dto.outgoing.ProjectDetails;
 import project_tracker_backend.dto.outgoing.ProjectDetailsWithTasks;
 import project_tracker_backend.service.ProjectService;
@@ -24,8 +24,8 @@ public class ProjectController {
 
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createProject(@RequestBody ProjectCreationDto projectCreationDto) {
-        projectService.createProject(projectCreationDto);
+    public void createProject(@RequestBody ProjectCreationCommand projectCreationCommand) {
+        projectService.createProject(projectCreationCommand);
     }
 
     @GetMapping("/user-projects/{userId}")
@@ -44,6 +44,12 @@ public class ProjectController {
     public ResponseEntity<ProjectDetails> getProject(@PathVariable("projectId") Long projectId) {
         ProjectDetails projectDetails = projectService.getProject(projectId);
         return new ResponseEntity<>(projectDetails, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{projectId}")
+    public ResponseEntity<Void> deleteProject(@PathVariable("projectId") Long projectId) {
+        projectService.deleteProject(projectId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

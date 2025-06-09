@@ -6,6 +6,7 @@ import project_tracker_frontend.application.service.ServiceFactory;
 import project_tracker_frontend.application.service.StatusService;
 import project_tracker_frontend.application.utilities.StatusModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -64,6 +65,21 @@ public class StatusState {
     }
     private static void requestSharedStatusList() {
         sharedStatusList = statusService.getApproppriateStatusList("both");
+    }
+
+    public Long getStatusIdByName(String selectedItem) {
+        Long statusId = null;
+        List<StatusModel> statusList = new ArrayList<>();
+        statusList.addAll(taskStatusList);
+        statusList.addAll(projectStatusList);
+        statusList.addAll(sharedStatusList);
+        for (StatusModel status : statusList) {
+            if (status.getName().equals(selectedItem)) {
+                statusId = status.getId();
+                break;
+            }
+        }
+        return statusId;
     }
 
     public static void setStatusService() {

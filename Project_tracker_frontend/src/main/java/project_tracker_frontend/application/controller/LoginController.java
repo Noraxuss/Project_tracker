@@ -9,7 +9,10 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import project_tracker_frontend.application.application_state.UserState;
-import project_tracker_frontend.application.controller.controller_utilities.ResourceBundleName;
+import project_tracker_frontend.application.controller.controller_utilities.ControllerFactory;
+import project_tracker_frontend.application.controller.controller_utilities.ControllerFactoryAware;
+import project_tracker_frontend.application.controller.controller_utilities.ControllerUtil;
+import project_tracker_frontend.application.controller.controller_utilities.ControllerUtilityAware;
 import project_tracker_frontend.application.domain.LoginModule;
 import project_tracker_frontend.application.scene.SceneEngine;
 import project_tracker_frontend.application.scene.SceneEngineAware;
@@ -19,12 +22,11 @@ import project_tracker_frontend.application.service.UserServiceAware;
 import java.util.ResourceBundle;
 
 public class LoginController implements SceneEngineAware, UserServiceAware,
-        ControllerFactoryAware, ResourceBundleName {
+        ControllerUtilityAware {
 
     private SceneEngine sceneEngine;
     private UserService userService;
-    private ControllerFactory controllerFactory;
-    private String resourceBundleName;
+    private ControllerUtil controllerUtility;
 
     private final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
@@ -54,9 +56,9 @@ public class LoginController implements SceneEngineAware, UserServiceAware,
 
     @FXML
     public void initialize() {
-        controllerFactory.localizeIncludedComponent(usernameFieldController,
+        controllerUtility.localizeIncludedComponent(usernameFieldController,
                 "login.username", resources);
-        controllerFactory.localizeIncludedComponent(passwordFieldController,
+        controllerUtility.localizeIncludedComponent(passwordFieldController,
                 "login.password", resources);
     }
 
@@ -69,8 +71,8 @@ public class LoginController implements SceneEngineAware, UserServiceAware,
     @FXML
     public void handleLogin(ActionEvent actionEvent) {
         // Create a LoginModule with the input from the username and password fields
-        String username = controllerFactory.getInputStringData(usernameFieldController);
-        String password = controllerFactory.getInputStringData(passwordFieldController);
+        String username = controllerUtility.getInputStringData(usernameFieldController);
+        String password = controllerUtility.getInputStringData(passwordFieldController);
         LoginModule loginModule = new LoginModule(username, password);
 
         userService.loginUser(loginModule);
@@ -107,13 +109,8 @@ public class LoginController implements SceneEngineAware, UserServiceAware,
     }
 
     @Override
-    public void setControllerFactory(ControllerFactory controllerFactory) {
-        this.controllerFactory = controllerFactory;
-    }
-
-    @Override
-    public void setResourceBundleName(String resourceBundleName) {
-        this.resourceBundleName = resourceBundleName;
+    public void setControllerUtility(ControllerUtil controllerUtility) {
+        this.controllerUtility = controllerUtility;
     }
 }
 

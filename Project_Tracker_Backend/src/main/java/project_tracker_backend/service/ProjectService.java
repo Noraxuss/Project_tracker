@@ -1,12 +1,14 @@
 package project_tracker_backend.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import project_tracker_backend.domain.Project;
 import project_tracker_backend.domain.Status;
 import project_tracker_backend.domain.User;
-import project_tracker_backend.dto.incoming.ProjectCreationDto;
+import project_tracker_backend.dto.incoming.ProjectCreationCommand;
 import project_tracker_backend.dto.mapper.ProjectMapper;
 import project_tracker_backend.dto.outgoing.ProjectDetails;
 import project_tracker_backend.dto.outgoing.ProjectDetailsWithTasks;
@@ -29,6 +31,8 @@ public class ProjectService {
 
     private final StatusService statusService;
 
+    private final Logger logger = LoggerFactory.getLogger(ProjectService.class);
+
     @Autowired
     public ProjectService(ProjectRepository projectRepository, ProjectMapper projectMapper,
                           @Lazy TaskService taskService, @Lazy UserService userService, StatusService statusService) {
@@ -39,13 +43,16 @@ public class ProjectService {
         this.statusService = statusService;
     }
 
-    public void createProject(ProjectCreationDto projectCreationDto) {
-        Project project = projectMapper.mapProjectCreationDtoToProject(projectCreationDto);
-        User user = userService.findUserById(projectCreationDto.getUserId());
+    public void createProject(ProjectCreationCommand projectCreationCommand) {
+        Project project = projectMapper.mapProjectCreationDtoToProject(projectCreationCommand);
+        User user = userService.findUserById(projectCreationCommand.getUserId());
 
         Status status = null;
-        if (projectCreationDto.getStatusId() < 0L) {
-            status = statusService.findStatusById(projectCreationDto.getStatusId());
+        logger.info("statusId: {}", projectCreationCommand.getStatusId());
+        if (projectCreationCommand.getStatusId() < 0L) {
+            // If statusId is negative, we use the default status
+            logger.info("Using default status for project creation. Status ID: {}", projectCreationCommand.getStatusId());
+            status = statusService.findStatusById(projectCreationCommand.getStatusId());
         }
 
         project.setStatus(status);
@@ -88,5 +95,15 @@ public class ProjectService {
     public ProjectDetails getProject(Long projectId) {
         Project project = findProjectById(projectId);
         return projectMapper.mapProjectToProjectDetails(project);
+    }
+
+    public void deleteProject(Long projectId) {
+        Project project = findProjectById(projectId);
+        if (project != null) {
+            projectRepository.delete(project);
+            logger.info("Project with ID {} has been deleted.", projectId);
+        } else {
+            logger.warn("Attempted to delete a non-existing project with ID {}.", projectId);
+        }
     }
 }

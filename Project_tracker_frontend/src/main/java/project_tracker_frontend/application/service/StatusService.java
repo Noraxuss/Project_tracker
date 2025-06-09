@@ -6,6 +6,7 @@ import project_tracker_frontend.application.dto.incoming.StatusCommand;
 import project_tracker_frontend.application.dto.outgoing.StatusCreationDetails;
 import project_tracker_frontend.application.utilities.StatusModel;
 
+import javax.net.ssl.SSLSession;
 import java.util.List;
 
 public class StatusService {

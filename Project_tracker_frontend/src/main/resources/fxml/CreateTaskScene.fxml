@@ -2,28 +2,47 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="project_tracker_frontend.application.controller.CreateTaskController"
-            prefHeight="400.0" prefWidth="600.0">
+            fx:controller="project_tracker_frontend.application.controller.CreateTaskController">
+
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+
+    <top>
+        <GridPane>
+            <columnConstraints>
+                <ColumnConstraints halignment="CENTER"/>
+            </columnConstraints>
+            <Label fx:id="titleLabel" text="%create_task.title" GridPane.rowIndex="0" GridPane.columnIndex="1"
+                   alignment="CENTER"/>
+        </GridPane>
+    </top>
+
 
     <center>
-        <GridPane hgap="10" vgap="10" alignment="CENTER">
-            <Label fx:id="titleLabel" text="%create_task.title" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+        <GridPane hgap="10" vgap="10" alignment="BASELINE_LEFT">
+            <columnConstraints>
+                <ColumnConstraints halignment="LEFT"/>
+            </columnConstraints>
 
-            <Label text="%create_task.task_name" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-            <TextField fx:id="taskNameField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+            <fx:include source="components/ShortTextRequestSceneComponent.fxml" fx:id="taskNameFieldController"
+                    GridPane.columnIndex="0" GridPane.rowIndex="1"/>
 
-            <Label text="%create_task.task_description" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-            <TextField fx:id="taskDescriptionField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+            <fx:include source="components/LongTextRequestComponentScene.fxml" fx:id="taskDescriptionFieldController"
+                        GridPane.columnIndex="0" GridPane.rowIndex="2"/>
 
-            <Label text="%create_task.task_status" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-            <ComboBox fx:id="taskStatusComboBox" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+            <HBox GridPane.rowIndex="3" GridPane.columnIndex="0" spacing="20" alignment="BASELINE_LEFT">
+                <Label text="%create_task.task_status_label" />
+                <ComboBox fx:id="taskStatusComboBox"/>
+            </HBox>
 
-            <Button fx:id="createTaskButton" text="%create_task.create_task" onAction="#handleCreateTask"
-                    GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+            <Button fx:id="createTaskButton" text="%create_task.create_task_button" onAction="#handleCreateTask"
+                    GridPane.columnIndex="0" GridPane.rowIndex="4"/>
 
-            <Label fx:id="systemResponseLabel" GridPane.columnIndex="1" GridPane.rowIndex="4"
+            <Label fx:id="systemResponseLabel" GridPane.columnIndex="0" GridPane.rowIndex="5"
                    style="-fx-text-fill: red"/>
         </GridPane>
     </center>

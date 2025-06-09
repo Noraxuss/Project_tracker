@@ -6,9 +6,9 @@
 <HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="project_tracker_frontend.application.controller.controller_components.ShortTextRequestSceneComponentController"
-      spacing="10" alignment="CENTER">
+      spacing="10" alignment="BASELINE_LEFT">
 
-    <Label fx:id="labelName" alignment="BASELINE_RIGHT"/>
+    <Label fx:id="labelName" alignment="BASELINE_LEFT"/>
     <TextField fx:id="inputText" prefWidth="200"/>
 
 </HBox>

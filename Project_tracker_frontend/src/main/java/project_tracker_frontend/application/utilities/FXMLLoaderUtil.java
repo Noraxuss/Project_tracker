@@ -1,8 +1,8 @@
 package project_tracker_frontend.application.utilities;
 
     import javafx.fxml.FXMLLoader;
-    import project_tracker_frontend.application.controller.ControllerFactory;
-    import project_tracker_frontend.application.controller.controller_utilities.ResourceBundleName;
+    import project_tracker_frontend.application.controller.controller_utilities.ControllerFactory;
+    import project_tracker_frontend.application.controller.controller_utilities.ControllerUtil;
     import project_tracker_frontend.application.scene.SceneEngine;
     import project_tracker_frontend.application.service.ServiceFactory;
 
@@ -20,7 +20,8 @@ package project_tracker_frontend.application.utilities;
                     ServiceFactory.getTaskService(),
                     ServiceFactory.getUserService(),
                     ServiceFactory.getStatusService(),
-                    ServiceFactory.getBackendCheckerService()
+                    ServiceFactory.getBackendCheckerService(),
+                    new ControllerUtil()
             );
         }
 
@@ -30,14 +31,8 @@ package project_tracker_frontend.application.utilities;
             loader.setResources(resourceBundle);
 
             // Use the controller factory
-//            loader.setControllerFactory(controllerFactory::createController);
-            loader.setControllerFactory(param -> {
-                Object controller = controllerFactory.createController(param);
-                if (controller instanceof ResourceBundleName localizableController) {
-                    localizableController.setResourceBundleName(name);
-                }
-                return controller;
-            });
+            loader.setControllerFactory(controllerFactory::createController);
+
 
             return loader;
         }

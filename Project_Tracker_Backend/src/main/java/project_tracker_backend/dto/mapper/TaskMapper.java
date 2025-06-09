@@ -2,7 +2,7 @@ package project_tracker_backend.dto.mapper;
 
 import org.springframework.stereotype.Component;
 import project_tracker_backend.domain.Task;
-import project_tracker_backend.dto.incoming.TaskCreationDto;
+import project_tracker_backend.dto.incoming.TaskCreationCommand;
 import project_tracker_backend.dto.outgoing.SubtaskDetails;
 import project_tracker_backend.dto.outgoing.TaskDetails;
 import project_tracker_backend.dto.outgoing.TaskDetailsWithSubtasks;
@@ -12,10 +12,10 @@ import java.util.ArrayList;
 @Component
 public class TaskMapper {
 
-    public Task mapTaskCreationDtoToTask(TaskCreationDto taskCreationDto) {
+    public Task mapTaskCreationDtoToTask(TaskCreationCommand taskCreationCommand) {
         Task task = new Task();
-        task.setName(taskCreationDto.getName());
-        task.setDescription(taskCreationDto.getDescription());
+        task.setName(taskCreationCommand.getName());
+        task.setDescription(taskCreationCommand.getDescription());
         return task;
     }
 

@@ -9,13 +9,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProjectCreationDto {
+public class UserCreationCommand {
 
-    private String name;
-    private String description;
-    private String status;
-    private Long userId;
-    private Long StatusId;
-
+    private String username;
+    private String password;
+    private String email;
 
 }
